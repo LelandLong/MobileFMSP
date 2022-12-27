@@ -40,6 +40,14 @@ export const DetailContactScreen = ({ navigation, route }) => {
 
   // accordian sections
   const [expandedSectionGeneral, setExpandedSectionGeneral] = useState(true);
+  const [expandedSectionEstimates, setExpandedSectionEstimates] =
+    useState(false);
+  const [expandedSectionInvoices, setExpandedSectionInvoices] = useState(false);
+  const [expandedSectionProjects, setExpandedSectionProjects] = useState(false);
+  const [expandedSectionToDos, setExpandedSectionToDos] = useState(false);
+  const [expandedSectionNotes, setExpandedSectionNotes] = useState(false);
+  const [expandedSectionCoworkers, setExpandedSectionCoworkers] =
+    useState(false);
 
   // - - - - - - - - - -
 
@@ -280,6 +288,268 @@ export const DetailContactScreen = ({ navigation, route }) => {
 
   // - - - - - - - - - -
 
+  const SectionEstimates = () => {
+    return (
+      <View>
+        <Divider style={styles.sectionDivider} />
+        <ListItem.Accordion
+          containerStyle={styles.sectionText}
+          content={
+            <>
+              <ListItem.Content>
+                <ListItem.Title style={textStyles}>
+                  Estimates (1)
+                </ListItem.Title>
+              </ListItem.Content>
+            </>
+          }
+          isExpanded={expandedSectionEstimates}
+          onPress={() => {
+            setExpandedSectionEstimates(!expandedSectionEstimates);
+          }}
+        >
+          <ListItem key={0} bottomDivider containerStyle={viewStyles}>
+            <ListItem.Content>
+              <ListItem.Title style={textStyles}>Name</ListItem.Title>
+            </ListItem.Content>
+            <ListItem.Content right>
+              <ListItem.Title
+                right
+                style={{
+                  color: colors.text,
+                  alignItems: "flex-end",
+                  textAlign: "right",
+                  width: 250,
+                }}
+              >
+                {contact.Name_Full}
+              </ListItem.Title>
+            </ListItem.Content>
+          </ListItem>
+        </ListItem.Accordion>
+      </View>
+    );
+  };
+
+  // - - - - - - - - - -
+
+  const SectionInvoices = () => {
+    return (
+      <View>
+        <Divider style={styles.sectionDivider} />
+        <ListItem.Accordion
+          containerStyle={styles.sectionText}
+          content={
+            <>
+              <ListItem.Content>
+                <ListItem.Title style={textStyles}>Invoices (1)</ListItem.Title>
+              </ListItem.Content>
+            </>
+          }
+          isExpanded={expandedSectionInvoices}
+          onPress={() => {
+            setExpandedSectionInvoices(!expandedSectionInvoices);
+          }}
+        >
+          <ListItem key={0} bottomDivider containerStyle={viewStyles}>
+            <ListItem.Content>
+              <ListItem.Title style={textStyles}>Name</ListItem.Title>
+            </ListItem.Content>
+            <ListItem.Content right>
+              <ListItem.Title
+                right
+                style={{
+                  color: colors.text,
+                  alignItems: "flex-end",
+                  textAlign: "right",
+                  width: 250,
+                }}
+              >
+                {contact.Name_Full}
+              </ListItem.Title>
+            </ListItem.Content>
+          </ListItem>
+        </ListItem.Accordion>
+      </View>
+    );
+  };
+
+  // - - - - - - - - - -
+
+  const SectionProjects = () => {
+    return (
+      <View>
+        <Divider style={styles.sectionDivider} />
+        <ListItem.Accordion
+          containerStyle={styles.sectionText}
+          content={
+            <>
+              <ListItem.Content>
+                <ListItem.Title style={textStyles}>Projects (1)</ListItem.Title>
+              </ListItem.Content>
+            </>
+          }
+          isExpanded={expandedSectionProjects}
+          onPress={() => {
+            setExpandedSectionProjects(!expandedSectionProjects);
+          }}
+        >
+          <ListItem key={0} bottomDivider containerStyle={viewStyles}>
+            <ListItem.Content>
+              <ListItem.Title style={textStyles}>Name</ListItem.Title>
+            </ListItem.Content>
+            <ListItem.Content right>
+              <ListItem.Title
+                right
+                style={{
+                  color: colors.text,
+                  alignItems: "flex-end",
+                  textAlign: "right",
+                  width: 250,
+                }}
+              >
+                {contact.Name_Full}
+              </ListItem.Title>
+            </ListItem.Content>
+          </ListItem>
+        </ListItem.Accordion>
+      </View>
+    );
+  };
+
+  // - - - - - - - - - -
+
+  const SectionToDos = () => {
+    return (
+      <View>
+        <Divider style={styles.sectionDivider} />
+        <ListItem.Accordion
+          containerStyle={styles.sectionText}
+          content={
+            <>
+              <ListItem.Content>
+                <ListItem.Title style={textStyles}>To Dos (1)</ListItem.Title>
+              </ListItem.Content>
+            </>
+          }
+          isExpanded={expandedSectionToDos}
+          onPress={() => {
+            setExpandedSectionToDos(!expandedSectionToDos);
+          }}
+        >
+          <ListItem key={0} bottomDivider containerStyle={viewStyles}>
+            <ListItem.Content>
+              <ListItem.Title style={textStyles}>Name</ListItem.Title>
+            </ListItem.Content>
+            <ListItem.Content right>
+              <ListItem.Title
+                right
+                style={{
+                  color: colors.text,
+                  alignItems: "flex-end",
+                  textAlign: "right",
+                  width: 250,
+                }}
+              >
+                {contact.Name_Full}
+              </ListItem.Title>
+            </ListItem.Content>
+          </ListItem>
+        </ListItem.Accordion>
+      </View>
+    );
+  };
+
+  // - - - - - - - - - -
+
+  const SectionNotes = () => {
+    return (
+      <View>
+        <Divider style={styles.sectionDivider} />
+        <ListItem.Accordion
+          containerStyle={styles.sectionText}
+          content={
+            <>
+              <ListItem.Content>
+                <ListItem.Title style={textStyles}>Notes (1)</ListItem.Title>
+              </ListItem.Content>
+            </>
+          }
+          isExpanded={expandedSectionNotes}
+          onPress={() => {
+            setExpandedSectionNotes(!expandedSectionNotes);
+          }}
+        >
+          <ListItem key={0} bottomDivider containerStyle={viewStyles}>
+            <ListItem.Content>
+              <ListItem.Title style={textStyles}>Name</ListItem.Title>
+            </ListItem.Content>
+            <ListItem.Content right>
+              <ListItem.Title
+                right
+                style={{
+                  color: colors.text,
+                  alignItems: "flex-end",
+                  textAlign: "right",
+                  width: 250,
+                }}
+              >
+                {contact.Name_Full}
+              </ListItem.Title>
+            </ListItem.Content>
+          </ListItem>
+        </ListItem.Accordion>
+      </View>
+    );
+  };
+
+  // - - - - - - - - - -
+
+  const SectionCoworkers = () => {
+    return (
+      <View style={{ paddingBottom: 100 }}>
+        <Divider style={styles.sectionDivider} />
+        <ListItem.Accordion
+          containerStyle={styles.sectionText}
+          content={
+            <>
+              <ListItem.Content>
+                <ListItem.Title style={textStyles}>
+                  Coworkers (1)
+                </ListItem.Title>
+              </ListItem.Content>
+            </>
+          }
+          isExpanded={expandedSectionCoworkers}
+          onPress={() => {
+            setExpandedSectionCoworkers(!expandedSectionCoworkers);
+          }}
+        >
+          <ListItem key={0} bottomDivider containerStyle={viewStyles}>
+            <ListItem.Content>
+              <ListItem.Title style={textStyles}>Name</ListItem.Title>
+            </ListItem.Content>
+            <ListItem.Content right>
+              <ListItem.Title
+                right
+                style={{
+                  color: colors.text,
+                  alignItems: "flex-end",
+                  textAlign: "right",
+                  width: 250,
+                }}
+              >
+                {contact.Name_Full}
+              </ListItem.Title>
+            </ListItem.Content>
+          </ListItem>
+        </ListItem.Accordion>
+      </View>
+    );
+  };
+
+  // - - - - - - - - - -
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.border }}>
       <ScrollView style={styles.list}>
@@ -287,6 +557,12 @@ export const DetailContactScreen = ({ navigation, route }) => {
           <Avatar size={96} source={contact.Contact_Container_Photo} />
         </View>
         <SectionGeneral />
+        <SectionEstimates />
+        <SectionInvoices />
+        <SectionProjects />
+        <SectionToDos />
+        <SectionNotes />
+        <SectionCoworkers />
       </ScrollView>
     </SafeAreaView>
   );
