@@ -1,5 +1,10 @@
 import React from "react";
-import { NavigationContainer } from "@react-navigation/native";
+import { useColorScheme } from "react-native";
+import {
+  NavigationContainer,
+  DefaultTheme,
+  DarkTheme,
+} from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { HomeNavigator } from "./home.navigator";
@@ -36,10 +41,25 @@ const createScreenOptions = ({ route }) => {
 };
 
 export const AppNavigator = () => {
+  const colorScheme = useColorScheme();
+  console.log("AppNavigator colorScheme: ", colorScheme);
+
+  // NOTE: had to change app.json - expo.userInterfaceStyle: "light"
+  //           to change app.json - expo.userInterfaceStyle: "automatic"
+  //
+  //       had to change app.json - expo.ios
+  //                        added - expo.ios.userInterfaceStyle: "automatic"
+  //
+  //       had to change app.json - expo.android
+  //                        added - expo.android.userInterfaceStyle: "automatic"
+  //
+
   // - - - - - - - - - -
 
   return (
-    <NavigationContainer>
+    <NavigationContainer
+      theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+    >
       <Tab.Navigator
         initialRouteName="Home"
         backBehavior="history"
