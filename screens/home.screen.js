@@ -90,7 +90,7 @@ export const HomeScreen = ({ navigation }) => {
   const itemTapped = (item) => {
     console.log("homeScreen itemTapped: ", item.name);
     if (item.name == "Contacts") {
-      navigation.navigate("DetailsScreen", {
+      navigation.navigate("ListContactsScreen", {
         whichDetail: item.name,
       });
     }

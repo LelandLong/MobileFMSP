@@ -1,7 +1,7 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { HomeScreen } from "../screens/home.screen";
-import { DetailsScreen } from "../screens/details.screen";
+import { ListContactsScreen } from "../screens/list.contacts.screen";
 
 // - - - - - - - - - - - - - - - - - - - -
 
@@ -24,9 +24,9 @@ export const HomeNavigator = () => {
         options={{ title: "Home" }}
       />
       <HomeStack.Screen
-        name="DetailsScreen"
-        component={DetailsScreen}
-        options={{ title: "Details" }}
+        name="ListContactsScreen"
+        component={ListContactsScreen}
+        options={{ title: "Contacts" }}
       />
     </HomeStack.Navigator>
   );
