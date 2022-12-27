@@ -16,7 +16,8 @@ const Colors = {
 
 // - - - - - - - - - - - - - - - - - - - -
 
-export const DetailsScreen = ({ navigation }) => {
+export const DetailsScreen = ({ navigation, route }) => {
+  let { whichDetail } = route.params;
   const colorScheme = useColorScheme();
   const colors = Colors[colorScheme];
 
@@ -30,7 +31,7 @@ export const DetailsScreen = ({ navigation }) => {
 
   return (
     <View style={viewStyles}>
-      <Text style={textStyles}>Details Screen</Text>
+      <Text style={textStyles}>{whichDetail} Details Screen</Text>
       <Text style={textStyles}> </Text>
     </View>
   );

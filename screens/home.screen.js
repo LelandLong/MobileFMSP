@@ -1,6 +1,11 @@
 import React from "react";
-import { View, Text, StyleSheet, useColorScheme } from "react-native";
-import { Button } from "@rneui/base";
+import {
+  SafeAreaView,
+  StyleSheet,
+  useColorScheme,
+  FlatList,
+} from "react-native";
+import { ListItem, Avatar } from "@rneui/themed";
 
 // - - - - - - - - - - - - - - - - - - - -
 
@@ -17,6 +22,59 @@ const Colors = {
 
 // - - - - - - - - - - - - - - - - - - - -
 
+const list = [
+  {
+    name: "Accounts",
+    avatar: require("../assets/Accounts.png"),
+  },
+  {
+    name: "Contacts",
+    avatar: require("../assets/Contacts.png"),
+  },
+  {
+    name: "Estimates",
+    avatar: require("../assets/Estimates.png"),
+  },
+  {
+    name: "Invoices",
+    avatar: require("../assets/Invoices.png"),
+  },
+  {
+    name: "Projects",
+    avatar: require("../assets/Projects.png"),
+  },
+  {
+    name: "Products",
+    avatar: require("../assets/Products.png"),
+  },
+  {
+    name: "Expenses",
+    avatar: require("../assets/Expenses.png"),
+  },
+  {
+    name: "Staff",
+    avatar: require("../assets/Staff.png"),
+  },
+  {
+    name: "Assets",
+    avatar: require("../assets/Assets.png"),
+  },
+  {
+    name: "Timesheets",
+    avatar: require("../assets/Timesheets.png"),
+  },
+  {
+    name: "Tasks",
+    avatar: require("../assets/Tasks.png"),
+  },
+  {
+    name: "Calendar",
+    avatar: require("../assets/Calendar.png"),
+  },
+];
+
+// - - - - - - - - - - - - - - - - - - - -
+
 export const HomeScreen = ({ navigation }) => {
   const colorScheme = useColorScheme();
   const colors = Colors[colorScheme];
@@ -29,15 +87,60 @@ export const HomeScreen = ({ navigation }) => {
 
   // - - - - - - - - - -
 
+  const itemTapped = (item) => {
+    console.log("homeScreen itemTapped: ", item.name);
+    if (item.name == "Contacts") {
+      navigation.navigate("DetailsScreen", {
+        whichDetail: item.name,
+      });
+    }
+  };
+
+  // - - - - - - - - - -
+
+  const keyExtractor = (item, index) => index.toString();
+
+  // - - - - - - - - - -
+
+  const renderItem = ({ item }) => {
+    return (
+      <ListItem
+        topDivider
+        bottomDivider
+        containerStyle={viewStyles}
+        onPress={() => itemTapped(item)}
+      >
+        <Avatar size={48} source={item.avatar} />
+        {item.name == "Contacts" ? (
+          <>
+            <ListItem.Content>
+              <ListItem.Title style={textStyles}>{item.name}</ListItem.Title>
+            </ListItem.Content>
+            <ListItem.Chevron />
+          </>
+        ) : (
+          <>
+            <ListItem.Content>
+              <ListItem.Title style={{ fontSize: 14, color: "gray" }}>
+                {item.name}
+              </ListItem.Title>
+            </ListItem.Content>
+          </>
+        )}
+      </ListItem>
+    );
+  };
+
+  // - - - - - - - - - -
+
   return (
-    <View style={viewStyles}>
-      <Text style={textStyles}>Home Screen</Text>
-      <Text style={textStyles}> </Text>
-      <Button
-        title="Go to Details"
-        onPress={() => navigation.navigate("DetailsScreen")}
+    <SafeAreaView style={{ flex: 1 }}>
+      <FlatList
+        keyExtractor={keyExtractor}
+        data={list}
+        renderItem={renderItem}
       />
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -48,7 +151,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   text: {
-    fontWeight: "bold",
-    fontSize: 20,
+    fontSize: 14,
   },
 });
