@@ -86,7 +86,7 @@ export const HomeScreen = ({ navigation }) => {
   ];
   const textStyles: TextStyle[] = [styles.text, { color: colors.text }];
 
-  const { getContacts, isLoading } = useContext(ContactsContext);
+  const { contacts, getContacts, isLoading } = useContext(ContactsContext);
   const [isRefreshing, setIsRefreshing] = useState(false);
 
   // - - - - - - - - - -
@@ -125,7 +125,9 @@ export const HomeScreen = ({ navigation }) => {
         {item.name == "Contacts" ? (
           <>
             <ListItem.Content>
-              <ListItem.Title style={textStyles}>{item.name}</ListItem.Title>
+              <ListItem.Title style={textStyles}>
+                {item.name} ({contacts.length})
+              </ListItem.Title>
             </ListItem.Content>
             <ListItem.Chevron />
           </>

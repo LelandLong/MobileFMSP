@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   View,
   Text,
@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { ListItem, Avatar, Divider } from "@rneui/themed";
 import * as Linking from "expo-linking"; // installed via: expo install expo-linking
+import { ContactsContext } from "../contexts/contacts.context";
 
 // - - - - - - - - - - - - - - - - - - - -
 
@@ -37,6 +38,8 @@ export const DetailContactScreen = ({ navigation, route }) => {
     { backgroundColor: colors.background },
   ];
   const textStyles: TextStyle[] = [styles.text, { color: colors.text }];
+
+  const { contacts } = useContext(ContactsContext);
 
   // accordian sections
   const [expandedSectionGeneral, setExpandedSectionGeneral] = useState(true);
@@ -110,7 +113,7 @@ export const DetailContactScreen = ({ navigation, route }) => {
   // - - - - - - - - - -
 
   const onAddressSelected = (contact) => {
-    const url = contact.Primary_Address_calc2;
+    const url = contact.fieldData.Primary_Address_calc2;
     const formattedUrl =
       "http://maps.apple.com/?address=" + url.replace(/ /gi, "%20");
     console.log(
@@ -172,7 +175,7 @@ export const DetailContactScreen = ({ navigation, route }) => {
                   width: 250,
                 }}
               >
-                {contact.Name_Full}
+                {contact.fieldData.Name_Full}
               </ListItem.Title>
             </ListItem.Content>
           </ListItem>
@@ -190,7 +193,7 @@ export const DetailContactScreen = ({ navigation, route }) => {
                   width: 250,
                 }}
               >
-                {contact.Title}
+                {contact.fieldData.Title}
               </ListItem.Title>
             </ListItem.Content>
           </ListItem>
@@ -208,7 +211,7 @@ export const DetailContactScreen = ({ navigation, route }) => {
                   width: 250,
                 }}
               >
-                {contact.Account_Name}
+                {contact.fieldData.Account_Name}
               </ListItem.Title>
             </ListItem.Content>
           </ListItem>
@@ -231,7 +234,7 @@ export const DetailContactScreen = ({ navigation, route }) => {
                   width: 250,
                 }}
               >
-                {contact.Primary_Address_calc2}
+                {contact.fieldData.Primary_Address_calc2}
               </ListItem.Title>
             </ListItem.Content>
           </ListItem>
@@ -239,7 +242,7 @@ export const DetailContactScreen = ({ navigation, route }) => {
             key={4}
             bottomDivider
             containerStyle={viewStyles}
-            onPress={() => onPhoneSelected(contact.Phone1)}
+            onPress={() => onPhoneSelected(contact.fieldData.Phone1)}
           >
             <ListItem.Content>
               <ListItem.Title style={textStyles}>Phone</ListItem.Title>
@@ -254,7 +257,7 @@ export const DetailContactScreen = ({ navigation, route }) => {
                   width: 250,
                 }}
               >
-                {contact.Phone1}
+                {contact.fieldData.Phone1}
               </ListItem.Title>
             </ListItem.Content>
           </ListItem>
@@ -262,7 +265,7 @@ export const DetailContactScreen = ({ navigation, route }) => {
             key={5}
             bottomDivider
             containerStyle={viewStyles}
-            onPress={() => onEmailSelected(contact.Email)}
+            onPress={() => onEmailSelected(contact.fieldData.Email)}
           >
             <ListItem.Content>
               <ListItem.Title style={textStyles}>Email</ListItem.Title>
@@ -277,7 +280,7 @@ export const DetailContactScreen = ({ navigation, route }) => {
                   width: 250,
                 }}
               >
-                {contact.Email}
+                {contact.fieldData.Email}
               </ListItem.Title>
             </ListItem.Content>
           </ListItem>
@@ -322,7 +325,7 @@ export const DetailContactScreen = ({ navigation, route }) => {
                   width: 250,
                 }}
               >
-                {contact.Name_Full}
+                {contact.fieldData.Name_Full}
               </ListItem.Title>
             </ListItem.Content>
           </ListItem>
@@ -365,7 +368,7 @@ export const DetailContactScreen = ({ navigation, route }) => {
                   width: 250,
                 }}
               >
-                {contact.Name_Full}
+                {contact.fieldData.Name_Full}
               </ListItem.Title>
             </ListItem.Content>
           </ListItem>
@@ -408,7 +411,7 @@ export const DetailContactScreen = ({ navigation, route }) => {
                   width: 250,
                 }}
               >
-                {contact.Name_Full}
+                {contact.fieldData.Name_Full}
               </ListItem.Title>
             </ListItem.Content>
           </ListItem>
@@ -451,7 +454,7 @@ export const DetailContactScreen = ({ navigation, route }) => {
                   width: 250,
                 }}
               >
-                {contact.Name_Full}
+                {contact.fieldData.Name_Full}
               </ListItem.Title>
             </ListItem.Content>
           </ListItem>
@@ -494,7 +497,7 @@ export const DetailContactScreen = ({ navigation, route }) => {
                   width: 250,
                 }}
               >
-                {contact.Name_Full}
+                {contact.fieldData.Name_Full}
               </ListItem.Title>
             </ListItem.Content>
           </ListItem>
@@ -539,7 +542,7 @@ export const DetailContactScreen = ({ navigation, route }) => {
                   width: 250,
                 }}
               >
-                {contact.Name_Full}
+                {contact.fieldData.Name_Full}
               </ListItem.Title>
             </ListItem.Content>
           </ListItem>
@@ -554,7 +557,12 @@ export const DetailContactScreen = ({ navigation, route }) => {
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.border }}>
       <ScrollView style={styles.list}>
         <View style={styles.avatarContainer}>
-          <Avatar size={96} source={contact.Contact_Container_Photo} />
+          <Avatar
+            size={96}
+            source={{
+              uri: `data:image/png;base64,${contact.fieldData.Contact_Container_Photo_Base64}`,
+            }}
+          />
         </View>
         <SectionGeneral />
         <SectionEstimates />

@@ -30,7 +30,11 @@ export const ContactsContextProvider = ({ children }) => {
             // console.log("getContacts FMS_getContacts result: ", fmsResult);
 
             const contacts = fmsResult.response.data;
-            console.log("getContacts FMS_getContacts contacts: ", contacts);
+            setContacts(contacts);
+            console.log(
+              "getContacts FMS_getContacts contacts: ",
+              contacts.length
+            );
 
             FMS_logout(token)
               .then((fmsResult) => {
