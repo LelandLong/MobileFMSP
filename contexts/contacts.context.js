@@ -7,13 +7,20 @@ export const ContactsContext = createContext();
 // - - - - - - - - - -
 
 export const ContactsContextProvider = ({ children }) => {
-  const [contacts, setContacts] = useState(["Hello Context World"]);
-  console.log("ContactsContextProvider instantiated... ");
+  const [contacts, setContacts] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   // - - - - - - - - - -
 
-  const futureFunction = () => {
-    console.log("ContactsContextProvider futureFunction... ");
+  const getContacts = () => {
+    console.log("ContactsContextProvider getContacts... ");
+    setIsLoading(true);
+
+    // do the work
+
+    const myTimer = setTimeout(() => {
+      setIsLoading(false);
+    }, 3000);
   };
 
   // - - - - - - - - - -
@@ -22,6 +29,8 @@ export const ContactsContextProvider = ({ children }) => {
     <ContactsContext.Provider
       value={{
         contacts,
+        isLoading,
+        getContacts,
       }}
     >
       {children}

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import {
   SafeAreaView,
   StyleSheet,
@@ -86,8 +86,15 @@ export const HomeScreen = ({ navigation }) => {
   ];
   const textStyles: TextStyle[] = [styles.text, { color: colors.text }];
 
-  const { contacts } = useContext(ContactsContext);
-  console.log("HomeScreen contactsContext[0]: ", contacts[0]);
+  const { getContacts, isLoading } = useContext(ContactsContext);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
+  // - - - - - - - - - -
+
+  const onRefresh = (authData) => {
+    setIsRefreshing(true);
+    getContacts();
+  };
 
   // - - - - - - - - - -
 
@@ -137,12 +144,22 @@ export const HomeScreen = ({ navigation }) => {
 
   // - - - - - - - - - -
 
+  useEffect(() => {
+    if (isRefreshing && !isLoading) {
+      setIsRefreshing(false);
+    }
+  }, [isLoading]);
+
+  // - - - - - - - - - -
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <FlatList
         keyExtractor={keyExtractor}
         data={list}
         renderItem={renderItem}
+        onRefresh={() => onRefresh()}
+        refreshing={isRefreshing}
       />
     </SafeAreaView>
   );
