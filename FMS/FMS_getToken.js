@@ -2,7 +2,7 @@ import { FMS_HOST, FMS_DATABASE } from "../fmsKeys";
 
 // - - - - - - - - - - - - - - - - - - - -
 
-export const getToken = () => {
+export const FMS_getToken = () => {
   //   const encodedCredentials = Base64Encode(FMS_USERNAME & ":" & FMS_PASSWORD);
   const encodedCredentials = "RGF0YUFQSV9SZWFjdE5hdGl2ZTpKYXZhU2NyaXB0Uk4=";
   const dynamicBody = "{}";
@@ -13,7 +13,7 @@ export const getToken = () => {
     FMS_DATABASE +
     "/sessions";
 
-  console.log("getToken dynamicUrl: ", dynamicUrl);
+  console.log("FMS_getToken dynamicUrl: ", dynamicUrl);
 
   // - - - - - - - - - -
 
@@ -39,13 +39,13 @@ export const getToken = () => {
     })
     .catch((error) => {
       const errorBlockString = JSON.stringify(error);
-      console.log("getToken catch errorBlockString: ", errorBlockString);
+      console.log("FMS_getToken catch errorBlockString: ", errorBlockString);
 
       return new Promise((resolve, reject) => {
         let subString = "<title>502";
         if (errorBlockString.includes(`${subString}`)) {
           const composedError = {
-            messages: [{ code: 502, message: "getToken catch, 502 error" }],
+            messages: [{ code: 502, message: "FMS_getToken catch, 502 error" }],
           };
           reject(JSON.stringify(composedError));
           //
@@ -53,19 +53,19 @@ export const getToken = () => {
         } else if (errorBlockString !== "{}") {
           const errorBlock = JSON.parse(errorBlockString);
           console.log(
-            "getToken catch return Promise errorBlock != {}, errorBlock: ",
+            "FMS_getToken catch return Promise errorBlock != {}, errorBlock: ",
             errorBlock
           );
           reject(JSON.stringify(errorBlock));
           //
           //
         } else {
-          console.log("getToken catch return Promise errorBlock == {}");
+          console.log("FMS_getToken catch return Promise errorBlock == {}");
           const composedError = {
             messages: [
               {
                 code: -99,
-                message: "getToken catch, no errorBlock",
+                message: "FMS_getToken catch, no errorBlock",
               },
             ],
           };

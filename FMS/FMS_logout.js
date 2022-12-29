@@ -2,7 +2,7 @@ import { FMS_HOST, FMS_DATABASE } from "../fmsKeys";
 
 // - - - - - - - - - - - - - - - - - - - -
 
-export const logout = (token) => {
+export const FMS_logout = (token) => {
   const dynamicUrl =
     "https://" +
     FMS_HOST +
@@ -11,7 +11,7 @@ export const logout = (token) => {
     "/sessions/" +
     token;
 
-  console.log("logout dynamicUrl: ", dynamicUrl);
+  console.log("FMS_logout dynamicUrl: ", dynamicUrl);
 
   // - - - - - - - - - -
 
@@ -35,13 +35,13 @@ export const logout = (token) => {
     })
     .catch((error) => {
       const errorBlockString = JSON.stringify(error);
-      console.log("logout catch errorBlockString: ", errorBlockString);
+      console.log("FMS_logout catch errorBlockString: ", errorBlockString);
 
       return new Promise((resolve, reject) => {
         let subString = "<title>502";
         if (errorBlockString.includes(`${subString}`)) {
           const composedError = {
-            messages: [{ code: 502, message: "logout catch, 502 error" }],
+            messages: [{ code: 502, message: "FMS_logout catch, 502 error" }],
           };
           reject(JSON.stringify(composedError));
           //
@@ -49,19 +49,19 @@ export const logout = (token) => {
         } else if (errorBlockString !== "{}") {
           const errorBlock = JSON.parse(errorBlockString);
           console.log(
-            "logout catch return Promise errorBlock != {}, errorBlock: ",
+            "FMS_logout catch return Promise errorBlock != {}, errorBlock: ",
             errorBlock
           );
           reject(JSON.stringify(errorBlock));
           //
           //
         } else {
-          console.log("logout catch return Promise errorBlock == {}");
+          console.log("FMS_logout catch return Promise errorBlock == {}");
           const composedError = {
             messages: [
               {
                 code: -99,
-                message: "logout catch, no errorBlock",
+                message: "FMS_logout catch, no errorBlock",
               },
             ],
           };
