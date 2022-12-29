@@ -1,5 +1,6 @@
 import React, { createContext, useState } from "react";
 import { getToken } from "../FMS/FMS_getToken";
+import { logout } from "../FMS/FMS_logout";
 
 // - - - - - - - - - - - - - - - - - - - -
 
@@ -19,8 +20,20 @@ export const ContactsContextProvider = ({ children }) => {
 
     getToken()
       .then((fmsResult) => {
-        console.log("getContacts getToken results: ", fmsResult);
-        setIsLoading(false);
+        // console.log("getContacts getToken results: ", fmsResult);
+        const token = fmsResult.response.token;
+        console.log("getContacts getToken token: ", token);
+
+        logout(token)
+          .then((fmsResult) => {
+            console.log("getContacts logout result: ", fmsResult);
+            setIsLoading(false);
+          })
+          .catch((fmsError) => {
+            console.log("getContacts logout error: ", fmsError);
+            setIsLoading(false);
+          });
+        //
       })
       .catch((fmsError) => {
         console.log("getContacts getToken error: ", fmsError);
