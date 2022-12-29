@@ -1,4 +1,5 @@
 import React, { createContext, useState } from "react";
+import { getToken } from "../FMS/FMS_getToken";
 
 // - - - - - - - - - - - - - - - - - - - -
 
@@ -16,11 +17,15 @@ export const ContactsContextProvider = ({ children }) => {
     console.log("ContactsContextProvider getContacts... ");
     setIsLoading(true);
 
-    // do the work
-
-    const myTimer = setTimeout(() => {
-      setIsLoading(false);
-    }, 3000);
+    getToken()
+      .then((fmsResult) => {
+        console.log("getContacts getToken results: ", fmsResult);
+        setIsLoading(false);
+      })
+      .catch((fmsError) => {
+        console.log("getContacts getToken error: ", fmsError);
+        setIsLoading(false);
+      });
   };
 
   // - - - - - - - - - -
