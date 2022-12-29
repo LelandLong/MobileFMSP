@@ -1,6 +1,7 @@
 import React, { createContext, useState } from "react";
-import { getToken } from "../FMS/FMS_getToken";
-import { logout } from "../FMS/FMS_logout";
+import { FMS_getToken } from "../FMS/FMS_getToken";
+import { FMS_logout } from "../FMS/FMS_logout";
+import { FMS_getContacts } from "../FMS/FMS_getContacts";
 
 // - - - - - - - - - - - - - - - - - - - -
 
@@ -18,25 +19,38 @@ export const ContactsContextProvider = ({ children }) => {
     console.log("ContactsContextProvider getContacts... ");
     setIsLoading(true);
 
-    getToken()
+    FMS_getToken()
       .then((fmsResult) => {
-        // console.log("getContacts getToken results: ", fmsResult);
+        // console.log("getContacts FMS_getToken results: ", fmsResult);
         const token = fmsResult.response.token;
-        console.log("getContacts getToken token: ", token);
+        console.log("getContacts FMS_getToken token: ", token);
 
-        logout(token)
+        FMS_getContacts(token)
           .then((fmsResult) => {
-            console.log("getContacts logout result: ", fmsResult);
-            setIsLoading(false);
+            // console.log("getContacts FMS_getContacts result: ", fmsResult);
+
+            const contacts = fmsResult.response.data;
+            console.log("getContacts FMS_getContacts contacts: ", contacts);
+
+            FMS_logout(token)
+              .then((fmsResult) => {
+                console.log("getContacts FMS_logout result: ", fmsResult);
+                setIsLoading(false);
+              })
+              .catch((fmsError) => {
+                console.log("getContacts FMS_logout error: ", fmsError);
+                setIsLoading(false);
+              });
+            //
           })
           .catch((fmsError) => {
-            console.log("getContacts logout error: ", fmsError);
+            console.log("getContacts FMS_getContacts error: ", fmsError);
             setIsLoading(false);
           });
         //
       })
       .catch((fmsError) => {
-        console.log("getContacts getToken error: ", fmsError);
+        console.log("getContacts FMS_getToken error: ", fmsError);
         setIsLoading(false);
       });
   };
