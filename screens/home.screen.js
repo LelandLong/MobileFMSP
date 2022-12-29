@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   SafeAreaView,
   StyleSheet,
@@ -6,6 +6,7 @@ import {
   FlatList,
 } from "react-native";
 import { ListItem, Avatar } from "@rneui/themed";
+import { ContactsContext } from "../contexts/contacts.context";
 
 // - - - - - - - - - - - - - - - - - - - -
 
@@ -84,6 +85,9 @@ export const HomeScreen = ({ navigation }) => {
     { backgroundColor: colors.background },
   ];
   const textStyles: TextStyle[] = [styles.text, { color: colors.text }];
+
+  const { contacts } = useContext(ContactsContext);
+  console.log("HomeScreen contactsContext[0]: ", contacts[0]);
 
   // - - - - - - - - - -
 
