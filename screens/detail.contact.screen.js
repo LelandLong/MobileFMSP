@@ -172,7 +172,7 @@ export const DetailContactScreen = ({ navigation, route }) => {
                   color: colors.text,
                   alignItems: "flex-end",
                   textAlign: "right",
-                  width: 250,
+                  width: 275,
                 }}
               >
                 {contact.fieldData.Name_Full}
@@ -190,7 +190,7 @@ export const DetailContactScreen = ({ navigation, route }) => {
                   color: colors.text,
                   alignItems: "flex-end",
                   textAlign: "right",
-                  width: 250,
+                  width: 275,
                 }}
               >
                 {contact.fieldData.Title}
@@ -208,7 +208,7 @@ export const DetailContactScreen = ({ navigation, route }) => {
                   color: colors.text,
                   alignItems: "flex-end",
                   textAlign: "right",
-                  width: 250,
+                  width: 275,
                 }}
               >
                 {contact.fieldData.Account_Name}
@@ -231,7 +231,7 @@ export const DetailContactScreen = ({ navigation, route }) => {
                   color: "dodgerblue",
                   alignItems: "flex-end",
                   textAlign: "right",
-                  width: 250,
+                  width: 275,
                 }}
               >
                 {contact.fieldData.Primary_Address_calc2}
@@ -254,7 +254,7 @@ export const DetailContactScreen = ({ navigation, route }) => {
                   color: "dodgerblue",
                   alignItems: "flex-end",
                   textAlign: "right",
-                  width: 250,
+                  width: 275,
                 }}
               >
                 {contact.fieldData.Phone1}
@@ -277,7 +277,7 @@ export const DetailContactScreen = ({ navigation, route }) => {
                   color: "dodgerblue",
                   alignItems: "flex-end",
                   textAlign: "right",
-                  width: 250,
+                  width: 275,
                 }}
               >
                 {contact.fieldData.Email}
@@ -301,7 +301,12 @@ export const DetailContactScreen = ({ navigation, route }) => {
             <>
               <ListItem.Content>
                 <ListItem.Title style={textStyles}>
-                  Estimates (1)
+                  Estimates (
+                  {
+                    contact.portalData["T05l_contacts_ESTIMATES||id_contacts|"]
+                      .length
+                  }
+                  )
                 </ListItem.Title>
               </ListItem.Content>
             </>
@@ -311,24 +316,53 @@ export const DetailContactScreen = ({ navigation, route }) => {
             setExpandedSectionEstimates(!expandedSectionEstimates);
           }}
         >
-          <ListItem key={0} bottomDivider containerStyle={viewStyles}>
-            <ListItem.Content>
-              <ListItem.Title style={textStyles}>Name</ListItem.Title>
-            </ListItem.Content>
-            <ListItem.Content right>
-              <ListItem.Title
-                right
-                style={{
-                  color: colors.text,
-                  alignItems: "flex-end",
-                  textAlign: "right",
-                  width: 250,
-                }}
-              >
-                {contact.fieldData.Name_Full}
-              </ListItem.Title>
-            </ListItem.Content>
-          </ListItem>
+          {contact.portalData["T05l_contacts_ESTIMATES||id_contacts|"].map(
+            (element, index) => (
+              <ListItem key={index} bottomDivider containerStyle={viewStyles}>
+                <ListItem.Content>
+                  <ListItem.Title style={textStyles}>
+                    {
+                      element[
+                        "T05l_contacts_ESTIMATES||id_contacts|::display_billing_name"
+                      ]
+                    }
+                  </ListItem.Title>
+                  <ListItem.Subtitle style={textStyles}>
+                    {
+                      element[
+                        "T05l_contacts_ESTIMATES||id_contacts|::BillTo_Company"
+                      ]
+                    }
+                  </ListItem.Subtitle>
+                </ListItem.Content>
+                <ListItem.Content right>
+                  <ListItem.Title
+                    right
+                    style={{
+                      color: colors.text,
+                      alignItems: "flex-end",
+                      textAlign: "right",
+                      width: 275,
+                    }}
+                  >
+                    {
+                      element[
+                        "T05l_contacts_ESTIMATES||id_contacts|::Date_Estimate"
+                      ]
+                    }
+                  </ListItem.Title>
+                  <ListItem.Subtitle right style={textStyles}>
+                    {element[
+                      "T05l_contacts_ESTIMATES||id_contacts|::Order_Total"
+                    ].toLocaleString("en-US", {
+                      style: "currency",
+                      currency: "USD",
+                    })}
+                  </ListItem.Subtitle>
+                </ListItem.Content>
+              </ListItem>
+            )
+          )}
         </ListItem.Accordion>
       </View>
     );
@@ -345,7 +379,14 @@ export const DetailContactScreen = ({ navigation, route }) => {
           content={
             <>
               <ListItem.Content>
-                <ListItem.Title style={textStyles}>Invoices (1)</ListItem.Title>
+                <ListItem.Title style={textStyles}>
+                  Invoices (
+                  {
+                    contact.portalData["T05m_contacts_INVOICES||id_contact|"]
+                      .length
+                  }
+                  )
+                </ListItem.Title>
               </ListItem.Content>
             </>
           }
@@ -354,24 +395,53 @@ export const DetailContactScreen = ({ navigation, route }) => {
             setExpandedSectionInvoices(!expandedSectionInvoices);
           }}
         >
-          <ListItem key={0} bottomDivider containerStyle={viewStyles}>
-            <ListItem.Content>
-              <ListItem.Title style={textStyles}>Name</ListItem.Title>
-            </ListItem.Content>
-            <ListItem.Content right>
-              <ListItem.Title
-                right
-                style={{
-                  color: colors.text,
-                  alignItems: "flex-end",
-                  textAlign: "right",
-                  width: 250,
-                }}
-              >
-                {contact.fieldData.Name_Full}
-              </ListItem.Title>
-            </ListItem.Content>
-          </ListItem>
+          {contact.portalData["T05m_contacts_INVOICES||id_contact|"].map(
+            (element, index) => (
+              <ListItem key={index} bottomDivider containerStyle={viewStyles}>
+                <ListItem.Content>
+                  <ListItem.Title style={textStyles}>
+                    {
+                      element[
+                        "T05m_contacts_INVOICES||id_contact|::display_bill_name"
+                      ]
+                    }
+                  </ListItem.Title>
+                  <ListItem.Subtitle style={textStyles}>
+                    {
+                      element[
+                        "T05m_contacts_INVOICES||id_contact|::BillTo_Company"
+                      ]
+                    }
+                  </ListItem.Subtitle>
+                </ListItem.Content>
+                <ListItem.Content right>
+                  <ListItem.Title
+                    right
+                    style={{
+                      color: colors.text,
+                      alignItems: "flex-end",
+                      textAlign: "right",
+                      width: 275,
+                    }}
+                  >
+                    {
+                      element[
+                        "T05m_contacts_INVOICES||id_contact|::Date_Invoice"
+                      ]
+                    }
+                  </ListItem.Title>
+                  <ListItem.Subtitle right style={textStyles}>
+                    {element[
+                      "T05m_contacts_INVOICES||id_contact|::Order_Total_Price"
+                    ].toLocaleString("en-US", {
+                      style: "currency",
+                      currency: "USD",
+                    })}
+                  </ListItem.Subtitle>
+                </ListItem.Content>
+              </ListItem>
+            )
+          )}
         </ListItem.Accordion>
       </View>
     );
@@ -388,7 +458,14 @@ export const DetailContactScreen = ({ navigation, route }) => {
           content={
             <>
               <ListItem.Content>
-                <ListItem.Title style={textStyles}>Projects (1)</ListItem.Title>
+                <ListItem.Title style={textStyles}>
+                  Projects (
+                  {
+                    contact.portalData["T05o_contacts_PROJECTS||id_contact|"]
+                      .length
+                  }
+                  )
+                </ListItem.Title>
               </ListItem.Content>
             </>
           }
@@ -397,24 +474,44 @@ export const DetailContactScreen = ({ navigation, route }) => {
             setExpandedSectionProjects(!expandedSectionProjects);
           }}
         >
-          <ListItem key={0} bottomDivider containerStyle={viewStyles}>
-            <ListItem.Content>
-              <ListItem.Title style={textStyles}>Name</ListItem.Title>
-            </ListItem.Content>
-            <ListItem.Content right>
-              <ListItem.Title
-                right
-                style={{
-                  color: colors.text,
-                  alignItems: "flex-end",
-                  textAlign: "right",
-                  width: 250,
-                }}
-              >
-                {contact.fieldData.Name_Full}
-              </ListItem.Title>
-            </ListItem.Content>
-          </ListItem>
+          {contact.portalData["T05o_contacts_PROJECTS||id_contact|"].map(
+            (element, index) => (
+              <ListItem key={index} bottomDivider containerStyle={viewStyles}>
+                <ListItem.Content>
+                  <ListItem.Title style={textStyles}>
+                    {
+                      element[
+                        "T05o_contacts_PROJECTS||id_contact|::Project_Name"
+                      ]
+                    }
+                  </ListItem.Title>
+                  <ListItem.Subtitle style={textStyles}>
+                    {
+                      element[
+                        "T05o_contacts_PROJECTS||id_contact|::Account_Name"
+                      ]
+                    }
+                  </ListItem.Subtitle>
+                </ListItem.Content>
+                <ListItem.Content right>
+                  <ListItem.Title
+                    right
+                    style={{
+                      color: colors.text,
+                      alignItems: "flex-end",
+                      textAlign: "right",
+                      width: 275,
+                    }}
+                  >
+                    {element["T05o_contacts_PROJECTS||id_contact|::Status"]}
+                  </ListItem.Title>
+                  <ListItem.Subtitle right style={textStyles}>
+                    {element["T05o_contacts_PROJECTS||id_contact|::Category"]}
+                  </ListItem.Subtitle>
+                </ListItem.Content>
+              </ListItem>
+            )
+          )}
         </ListItem.Accordion>
       </View>
     );
@@ -431,7 +528,14 @@ export const DetailContactScreen = ({ navigation, route }) => {
           content={
             <>
               <ListItem.Content>
-                <ListItem.Title style={textStyles}>To Dos (1)</ListItem.Title>
+                <ListItem.Title style={textStyles}>
+                  To Dos (
+                  {
+                    contact.portalData["T05p_contacts_TASK_LIST||id_contact|"]
+                      .length
+                  }
+                  )
+                </ListItem.Title>
               </ListItem.Content>
             </>
           }
@@ -440,24 +544,41 @@ export const DetailContactScreen = ({ navigation, route }) => {
             setExpandedSectionToDos(!expandedSectionToDos);
           }}
         >
-          <ListItem key={0} bottomDivider containerStyle={viewStyles}>
-            <ListItem.Content>
-              <ListItem.Title style={textStyles}>Name</ListItem.Title>
-            </ListItem.Content>
-            <ListItem.Content right>
-              <ListItem.Title
-                right
-                style={{
-                  color: colors.text,
-                  alignItems: "flex-end",
-                  textAlign: "right",
-                  width: 250,
-                }}
-              >
-                {contact.fieldData.Name_Full}
-              </ListItem.Title>
-            </ListItem.Content>
-          </ListItem>
+          {contact.portalData["T05p_contacts_TASK_LIST||id_contact|"].map(
+            (element, index) => (
+              <ListItem key={index} bottomDivider containerStyle={viewStyles}>
+                <ListItem.Content>
+                  <ListItem.Title style={textStyles}>
+                    {element["T05p_contacts_TASK_LIST||id_contact|::Item"]}
+                  </ListItem.Title>
+                  <ListItem.Subtitle style={textStyles}>
+                    {
+                      element[
+                        "T05p_contacts_TASK_LIST||id_contact|::Staff_Name"
+                      ]
+                    }
+                  </ListItem.Subtitle>
+                </ListItem.Content>
+                <ListItem.Content right>
+                  <ListItem.Title
+                    right
+                    style={{
+                      color: colors.text,
+                      alignItems: "flex-end",
+                      textAlign: "right",
+                      width: 275,
+                    }}
+                  >
+                    {element["T05p_contacts_TASK_LIST||id_contact|::Status"]}
+                  </ListItem.Title>
+                  <ListItem.Subtitle right style={textStyles}>
+                    Due:{" "}
+                    {element["T05p_contacts_TASK_LIST||id_contact|::Date_Due"]}
+                  </ListItem.Subtitle>
+                </ListItem.Content>
+              </ListItem>
+            )
+          )}
         </ListItem.Accordion>
       </View>
     );
@@ -474,7 +595,14 @@ export const DetailContactScreen = ({ navigation, route }) => {
           content={
             <>
               <ListItem.Content>
-                <ListItem.Title style={textStyles}>Notes (1)</ListItem.Title>
+                <ListItem.Title style={textStyles}>
+                  Notes (
+                  {
+                    contact.portalData["T05c_contacts_NOTES||id_contact|"]
+                      .length
+                  }
+                  )
+                </ListItem.Title>
               </ListItem.Content>
             </>
           }
@@ -483,24 +611,36 @@ export const DetailContactScreen = ({ navigation, route }) => {
             setExpandedSectionNotes(!expandedSectionNotes);
           }}
         >
-          <ListItem key={0} bottomDivider containerStyle={viewStyles}>
-            <ListItem.Content>
-              <ListItem.Title style={textStyles}>Name</ListItem.Title>
-            </ListItem.Content>
-            <ListItem.Content right>
-              <ListItem.Title
-                right
-                style={{
-                  color: colors.text,
-                  alignItems: "flex-end",
-                  textAlign: "right",
-                  width: 250,
-                }}
-              >
-                {contact.fieldData.Name_Full}
-              </ListItem.Title>
-            </ListItem.Content>
-          </ListItem>
+          {contact.portalData["T05c_contacts_NOTES||id_contact|"].map(
+            (element, index) => (
+              <ListItem key={index} bottomDivider containerStyle={viewStyles}>
+                <ListItem.Content>
+                  <ListItem.Title style={textStyles}>
+                    {element["T05c_contacts_NOTES||id_contact|::Note_Subject"]}
+                  </ListItem.Title>
+                  <ListItem.Subtitle style={textStyles}>
+                    {element["T05c_contacts_NOTES||id_contact|::Text"]}
+                  </ListItem.Subtitle>
+                </ListItem.Content>
+                <ListItem.Content right>
+                  <ListItem.Title
+                    right
+                    style={{
+                      color: colors.text,
+                      alignItems: "flex-end",
+                      textAlign: "right",
+                      width: 275,
+                    }}
+                  >
+                    {element["T05c_contacts_NOTES||id_contact|::Date"]}
+                  </ListItem.Title>
+                  <ListItem.Subtitle right style={textStyles}>
+                    {element["T05c_contacts_NOTES||id_contact|::Note_Type"]}
+                  </ListItem.Subtitle>
+                </ListItem.Content>
+              </ListItem>
+            )
+          )}
         </ListItem.Accordion>
       </View>
     );
@@ -518,7 +658,12 @@ export const DetailContactScreen = ({ navigation, route }) => {
             <>
               <ListItem.Content>
                 <ListItem.Title style={textStyles}>
-                  Coworkers (1)
+                  Coworkers (
+                  {
+                    contact.portalData["T05f_contacts_CONTACTS||id_contact|"]
+                      .length
+                  }
+                  )
                 </ListItem.Title>
               </ListItem.Content>
             </>
@@ -528,24 +673,44 @@ export const DetailContactScreen = ({ navigation, route }) => {
             setExpandedSectionCoworkers(!expandedSectionCoworkers);
           }}
         >
-          <ListItem key={0} bottomDivider containerStyle={viewStyles}>
-            <ListItem.Content>
-              <ListItem.Title style={textStyles}>Name</ListItem.Title>
-            </ListItem.Content>
-            <ListItem.Content right>
-              <ListItem.Title
-                right
-                style={{
-                  color: colors.text,
-                  alignItems: "flex-end",
-                  textAlign: "right",
-                  width: 250,
-                }}
-              >
-                {contact.fieldData.Name_Full}
-              </ListItem.Title>
-            </ListItem.Content>
-          </ListItem>
+          {contact.portalData["T05f_contacts_CONTACTS||id_contact|"].map(
+            (element, index) => (
+              <ListItem key={index} bottomDivider containerStyle={viewStyles}>
+                <ListItem.Content>
+                  <ListItem.Title style={textStyles}>
+                    {element["T05f_contacts_CONTACTS||id_contact|::Name_Full"]}
+                  </ListItem.Title>
+                  <ListItem.Subtitle style={textStyles}>
+                    {element["T05f_contacts_CONTACTS||id_contact|::Title"]}
+                  </ListItem.Subtitle>
+                </ListItem.Content>
+                <ListItem.Content right>
+                  <ListItem.Title
+                    right
+                    style={{
+                      color: colors.text,
+                      alignItems: "flex-end",
+                      textAlign: "right",
+                      width: 275,
+                    }}
+                  >
+                    {element["T05f_contacts_CONTACTS||id_contact|::Phone1"]}
+                  </ListItem.Title>
+                  <ListItem.Subtitle
+                    right
+                    style={{
+                      color: colors.text,
+                      alignItems: "flex-end",
+                      textAlign: "right",
+                      width: 275,
+                    }}
+                  >
+                    {element["T05f_contacts_CONTACTS||id_contact|::Email"]}
+                  </ListItem.Subtitle>
+                </ListItem.Content>
+              </ListItem>
+            )
+          )}
         </ListItem.Accordion>
       </View>
     );
@@ -613,6 +778,6 @@ const styles = StyleSheet.create({
   rightTitleStyles: {
     alignItems: "flex-end",
     textAlign: "right",
-    width: 250,
+    width: 275,
   },
 });
