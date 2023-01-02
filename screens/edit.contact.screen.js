@@ -28,10 +28,11 @@ const Colors = {
 // - - - - - - - - - - - - - - - - - - - -
 
 export const EditContactScreen = ({ navigation, route }) => {
-  // parameters
-  let { contact } = route.params;
-  const { editedContactFieldData, setEditedContactFieldData } =
+  const { contacts, editedContactFieldData, setEditedContactFieldData } =
     useContext(ContactsContext);
+  // parameters
+  let { contactIndex } = route.params;
+  const contact = contacts[contactIndex];
 
   // colors
   const colorScheme = useColorScheme();

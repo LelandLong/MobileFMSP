@@ -105,10 +105,10 @@ export const ListContactsScreen = ({ navigation, route }) => {
 
   // - - - - - - - - - -
 
-  const itemTapped = (item) => {
-    console.log("listContacts itemTapped: ", item.fieldData.Account_Name);
+  const itemTapped = (index) => {
+    console.log("listContacts indexTapped: ", index);
     navigation.navigate("DetailContactScreen", {
-      contact: item,
+      contactIndex: index,
       isSaving: false,
     });
   };
@@ -119,13 +119,13 @@ export const ListContactsScreen = ({ navigation, route }) => {
 
   // - - - - - - - - - -
 
-  const renderItem = ({ item }) => {
+  const renderItem = ({ item, index }) => {
     return (
       <ListItem
         topDivider
         bottomDivider
         containerStyle={viewStyles}
-        onPress={() => itemTapped(item)}
+        onPress={() => itemTapped(index)}
       >
         <Avatar
           size={48}

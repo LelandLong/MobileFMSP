@@ -29,8 +29,10 @@ const Colors = {
 // - - - - - - - - - - - - - - - - - - - -
 
 export const DetailContactScreen = ({ navigation, route }) => {
+  const { contacts, setEditedContactFieldData } = useContext(ContactsContext);
   // parameters
-  let { contact, isSaving } = route.params;
+  const { contactIndex, isSaving } = route.params;
+  const contact = contacts[contactIndex];
   // console.log("DetailContactScreen launched, isSaving: ", isSaving);
 
   // colors
@@ -42,8 +44,6 @@ export const DetailContactScreen = ({ navigation, route }) => {
   ];
   const textStyles: TextStyle[] = [styles.text, { color: colors.text }];
 
-  const { editedContactFieldData, setEditedContactFieldData } =
-    useContext(ContactsContext);
   const [isLoading, setIsLoading] = useState(false);
 
   // accordian sections
@@ -61,12 +61,9 @@ export const DetailContactScreen = ({ navigation, route }) => {
 
   const editTapped = () => {
     setEditedContactFieldData(contact.fieldData);
-    console.log(
-      "DetailContactScreen editTapped, account: ",
-      contact.fieldData.Account_Name
-    );
+    console.log("DetailContactScreen editTapped, contactIndex: ", contactIndex);
     navigation.navigate("EditContactScreen", {
-      contact: contact,
+      contactIndex: contactIndex,
     });
   };
 
