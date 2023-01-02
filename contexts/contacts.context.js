@@ -31,7 +31,10 @@ export const ContactsContextProvider = ({ children }) => {
 
         FMS_getContacts(token)
           .then((fmsResult) => {
-            // console.log("getContacts FMS_getContacts result: ", fmsResult);
+            // console.log(
+            //   "getContacts FMS_getContacts result: ",
+            //   JSON.stringify(fmsResult)
+            // );
 
             const contacts = fmsResult.response.data;
             setContacts(contacts);
@@ -88,12 +91,11 @@ export const ContactsContextProvider = ({ children }) => {
 
             const message = fmsResult.messages[0].message;
             alert("FileMaker Server: " + message);
-            setIsLoading(false);
 
             FMS_logout(token)
               .then((fmsResult) => {
                 console.log("saveContact FMS_logout result: ", fmsResult);
-                const delay = setTimeout(() => {}, 2000);
+                setIsLoading(false);
               })
               .catch((fmsError) => {
                 console.log("saveContact FMS_logout error: ", fmsError);
@@ -121,15 +123,70 @@ export const ContactsContextProvider = ({ children }) => {
 
   // - - - - - - - - - -
 
+  const createNewContact = (contact) => {
+    console.log("ContactsContextProvider createNewContact... ");
+    setIsLoading(true);
+    setErrorMessage("");
+
+    // FMS_getToken()
+    //   .then((fmsResult) => {
+    //     // console.log("saveContact FMS_getToken results: ", fmsResult);
+    //     const token = fmsResult.response.token;
+    //     console.log("saveContact FMS_getToken token: ", token);
+
+    //     FMS_saveContact(token, contact)
+    //       .then((fmsResult) => {
+    //         console.log("saveContact FMS_saveContact result: ", fmsResult);
+
+    //         const message = fmsResult.messages[0].message;
+    //         alert("FileMaker Server: " + message);
+
+    //         FMS_logout(token)
+    //           .then((fmsResult) => {
+    //             console.log("saveContact FMS_logout result: ", fmsResult);
+    //             setIsLoading(false);
+    //           })
+    //           .catch((fmsError) => {
+    //             console.log("saveContact FMS_logout error: ", fmsError);
+    //             setErrorMessage(fmsError);
+    //             alert(fmsError);
+    //             setIsLoading(false);
+    //           });
+    //         //
+    //       })
+    //       .catch((fmsError) => {
+    //         console.log("saveContact FMS_saveContact error: ", fmsError);
+    //         setErrorMessage(fmsError);
+    //         alert(fmsError);
+    //         setIsLoading(false);
+    //       });
+    //     //
+    //   })
+    //   .catch((fmsError) => {
+    //     console.log("saveContact FMS_getToken error: ", fmsError);
+    //     setErrorMessage(fmsError);
+    //     alert(fmsError);
+    //     setIsLoading(false);
+    //   });
+
+    const myTimer = setTimeout(() => {
+      setIsLoading(false);
+    });
+  };
+
+  // - - - - - - - - - -
+
   return (
     <ContactsContext.Provider
       value={{
         contacts,
+        setContacts,
         editedContactFieldData,
         setEditedContactFieldData,
         isLoading,
         getContacts,
         saveContact,
+        createNewContact,
       }}
     >
       {children}

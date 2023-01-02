@@ -32,12 +32,14 @@ export const DetailContactScreen = ({ navigation, route }) => {
   const {
     isLoading,
     contacts,
+    setContacts,
     editedContactFieldData,
     setEditedContactFieldData,
     saveContact,
+    createNewContact,
   } = useContext(ContactsContext);
   // parameters
-  const { contactIndex, isSaving } = route.params;
+  const { contactIndex, isSaving, editType } = route.params;
   const contact = contacts[contactIndex];
   // console.log("DetailContactScreen launched, isSaving: ", isSaving);
 
@@ -68,6 +70,7 @@ export const DetailContactScreen = ({ navigation, route }) => {
     console.log("DetailContactScreen editTapped, contactIndex: ", contactIndex);
     navigation.navigate("EditContactScreen", {
       contactIndex: contactIndex,
+      editType: "edit",
     });
   };
 
@@ -739,15 +742,50 @@ export const DetailContactScreen = ({ navigation, route }) => {
 
   useEffect(() => {
     navigation.setOptions({
+      headerLeft: () => (
+        <Button
+          onPress={() => navigation.navigate("ListContactsScreen")}
+          title="< Contacts"
+        />
+      ),
       headerRight: () => <Button onPress={() => editTapped()} title="Edit" />,
     });
-    if (isSaving) {
+    //
+    //
+    if (isSaving && editType == "edit") {
+      // update edits to context
       contact["fieldData"] = editedContactFieldData;
       navigation.setParams({
         contactIndex: contactIndex,
+        editType: editType,
         isSaving: false,
       });
+      // push to server
       saveContact(contact);
+      //
+      //
+    } else if (isSaving && editType == "new") {
+      // update contacts by adding to end of array and saving to context
+      const newContact = {
+        fieldData: editedContactFieldData,
+        portalData: {
+          "T05l_contacts_ESTIMATES||id_contacts|": [],
+          "T05m_contacts_INVOICES||id_contact|": [],
+          "T05o_contacts_PROJECTS||id_contact|": [],
+          "T05p_contacts_TASK_LIST||id_contact|": [],
+          "T05c_contacts_NOTES||id_contact|": [],
+          "T05f_contacts_CONTACTS||id_contact|": [],
+        },
+      };
+      contacts.push(newContact);
+      setContacts(contacts);
+      navigation.setParams({
+        contactIndex: contacts.length - 1,
+        editType: editType,
+        isSaving: false,
+      });
+      // push to server
+      createNewContact(newContact);
     }
   }, [navigation, route.params]);
 

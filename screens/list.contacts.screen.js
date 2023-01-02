@@ -1,6 +1,8 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   SafeAreaView,
+  View,
+  ActivityIndicator,
   FlatList,
   Button,
   StyleSheet,
@@ -25,67 +27,7 @@ const Colors = {
 
 // - - - - - - - - - - - - - - - - - - - -
 
-// const list = [
-//   {
-//     Name_Initial: "Ryan Alvarez Smith",
-//     Name_Full: "Ryan Alvarez Smith",
-//     Account_Name: "Richard Carlton Consulting",
-//     Primary_Address_calc2: "123 Pitt St. Mt. Pleasant, SC 29464",
-//     Primary_City: "Charleston",
-//     Primary_State_Prov1: "SC",
-//     Phone1: "8438179277",
-//     Email: "ryan@me.com",
-//     Title: "Accountant",
-//     Contact_Container_Photo: require("../assets/Accounts.png"),
-//     Followup_Days_Number: 5,
-//   },
-//   {
-//     Name_Initial: "Alvarez Ryan Smith",
-//     Name_Full: "Alvarez Ryan Smith",
-//     Account_Name: "Staff",
-//     Primary_Address_calc2: "123 Pitt St. Mt. Pleasant, SC 29464",
-//     Primary_City: "Summerville",
-//     Primary_State_Prov1: "SC",
-//     Phone1: "8438179277",
-//     Email: "alvarez@me.com",
-//     Title: "Clerk",
-//     Contact_Container_Photo: require("../assets/Staff.png"),
-//     Followup_Days_Number: 3,
-//   },
-//   {
-//     Name_Initial: "Smith Ryan Alvarez",
-//     Name_Full: "Smith Ryan Alvarez",
-//     Account_Name: "McD's",
-//     Primary_Address_calc2: "123 Pitt St. Mt. Pleasant, SC 29464",
-//     Primary_City: "Columbia",
-//     Primary_State_Prov1: "SC",
-//     Phone1: "8438179277",
-//     Email: "smith@me.com",
-//     Title: "Hostess",
-//     Contact_Container_Photo: require("../assets/Tasks.png"),
-//     Followup_Days_Number: 6,
-//   },
-//   {
-//     Name_Initial: "Smith Smith Smith",
-//     Name_Full: "Smith Smith Smith",
-//     Account_Name: "ABC Widgets",
-//     Primary_Address_calc2: "123 Pitt St. Mt. Pleasant, SC 29464",
-//     Primary_City: "Mt. Pleasant",
-//     Primary_State_Prov1: "SC",
-//     Phone1: "8438179277",
-//     Email: "smithsmithsmith@me.com",
-//     Title: "Chef",
-//     Contact_Container_Photo: require("../assets/Assets.png"),
-//     Followup_Days_Number: 2,
-//   },
-// ];
-
-// - - - - - - - - - - - - - - - - - - - -
-
 export const ListContactsScreen = ({ navigation, route }) => {
-  // parameters
-  let { whichDetail } = route.params;
-
   const colorScheme = useColorScheme();
   const colors = Colors[colorScheme];
 
@@ -95,12 +37,17 @@ export const ListContactsScreen = ({ navigation, route }) => {
   ];
   const titleStyles: TextStyle[] = [styles.title, { color: colors.text }];
 
-  const { contacts } = useContext(ContactsContext);
+  const { contacts, isLoading } = useContext(ContactsContext);
+  const [forceUpdateValue, setForceUpdateValue] = useState(0);
 
   // - - - - - - - - - -
 
   const addTapped = () => {
     console.log("listContacts addTapped...");
+    navigation.navigate("EditContactScreen", {
+      contactIndex: 0,
+      editType: "new",
+    });
   };
 
   // - - - - - - - - - -
@@ -109,6 +56,7 @@ export const ListContactsScreen = ({ navigation, route }) => {
     console.log("listContacts indexTapped: ", index);
     navigation.navigate("DetailContactScreen", {
       contactIndex: index,
+      editType: "",
       isSaving: false,
     });
   };
@@ -148,6 +96,14 @@ export const ListContactsScreen = ({ navigation, route }) => {
 
   // - - - - - - - - - -
 
+  const useForceUpdate = () => {
+    console.log("USEFORCEUPDATE...");
+    return () =>
+      setForceUpdateValue((forceUpdateValue) => forceUpdateValue + 1);
+  };
+
+  // - - - - - - - - - -
+
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => <Button onPress={() => addTapped()} title="+" />,
@@ -156,13 +112,29 @@ export const ListContactsScreen = ({ navigation, route }) => {
 
   // - - - - - - - - - -
 
+  useEffect(() => {
+    const forceUpdate = useForceUpdate();
+  }, [isLoading]);
+
+  // - - - - - - - - - -
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <FlatList
-        keyExtractor={keyExtractor}
-        data={contacts}
-        renderItem={renderItem}
-      />
+      {isLoading ? (
+        <>
+          <View style={[styles.container]}>
+            <ActivityIndicator size="large" />
+          </View>
+        </>
+      ) : (
+        <>
+          <FlatList
+            keyExtractor={keyExtractor}
+            data={contacts}
+            renderItem={renderItem}
+          />
+        </>
+      )}
     </SafeAreaView>
   );
 };

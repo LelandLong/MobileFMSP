@@ -1,6 +1,8 @@
 import React, { useContext, useState, useEffect } from "react";
 import {
   SafeAreaView,
+  View,
+  ActivityIndicator,
   StyleSheet,
   useColorScheme,
   FlatList,
@@ -101,9 +103,7 @@ export const HomeScreen = ({ navigation }) => {
   const itemTapped = (item) => {
     console.log("homeScreen itemTapped: ", item.name);
     if (item.name == "Contacts") {
-      navigation.navigate("ListContactsScreen", {
-        whichDetail: item.name,
-      });
+      navigation.navigate("ListContactsScreen");
     }
   };
 
@@ -156,13 +156,23 @@ export const HomeScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <FlatList
-        keyExtractor={keyExtractor}
-        data={list}
-        renderItem={renderItem}
-        onRefresh={() => onRefresh()}
-        refreshing={isRefreshing}
-      />
+      {isLoading ? (
+        <>
+          <View style={[styles.container]}>
+            <ActivityIndicator size="large" />
+          </View>
+        </>
+      ) : (
+        <>
+          <FlatList
+            keyExtractor={keyExtractor}
+            data={list}
+            renderItem={renderItem}
+            onRefresh={() => onRefresh()}
+            refreshing={isRefreshing}
+          />
+        </>
+      )}
     </SafeAreaView>
   );
 };
