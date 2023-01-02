@@ -55,6 +55,7 @@ export const EditContactScreen = ({ navigation, route }) => {
   const refInput9 = useRef();
   const refInput10 = useRef();
   const refInput11 = useRef();
+  const refInput12 = useRef();
 
   // - - - - - - - - - -
 
@@ -68,7 +69,7 @@ export const EditContactScreen = ({ navigation, route }) => {
   const doneTapped = () => {
     console.log("EditContactScreen doneTapped...");
     navigation.navigate("DetailContactScreen", {
-      contact: contact,
+      contactIndex: contactIndex,
       isSaving: true,
     });
   };
@@ -101,7 +102,7 @@ export const EditContactScreen = ({ navigation, route }) => {
           <Divider style={styles.sectionDivider} />
           <ListItem key={0} containerStyle={viewStyles}>
             <ListItem.Content>
-              <ListItem.Title style={textStyles}>Name</ListItem.Title>
+              <ListItem.Title style={textStyles}>First Name</ListItem.Title>
             </ListItem.Content>
             <ListItem.Content right>
               <Input
@@ -119,24 +120,57 @@ export const EditContactScreen = ({ navigation, route }) => {
                 onChangeText={(value) =>
                   setEditedContactFieldData((prevState) => ({
                     ...prevState,
-                    Name_Full: value,
+                    Name_First: value,
+                    Name_Full: value + " " + editedContactFieldData.Name_Last,
                   }))
                 }
                 returnKeyType="next"
                 onFocus={() => setInputFocused(true)}
                 onEndEditing={() => setInputFocused(false)}
                 onSubmitEditing={() => refInput2.current.focus()}
-                value={editedContactFieldData.Name_Full}
+                value={editedContactFieldData.Name_First}
               />
             </ListItem.Content>
           </ListItem>
           <ListItem key={1} containerStyle={viewStyles}>
             <ListItem.Content>
-              <ListItem.Title style={textStyles}>Title</ListItem.Title>
+              <ListItem.Title style={textStyles}>Last Name</ListItem.Title>
             </ListItem.Content>
             <ListItem.Content right>
               <Input
                 ref={refInput2}
+                containerStyle={{
+                  width: 275,
+                  padding: 0,
+                }}
+                style={{
+                  color: colors.text,
+                }}
+                textAlign="right"
+                autoCapitalize="words"
+                autoCorrect={false}
+                onChangeText={(value) =>
+                  setEditedContactFieldData((prevState) => ({
+                    ...prevState,
+                    Name_Last: value,
+                    Name_Full: editedContactFieldData.Name_First + " " + value,
+                  }))
+                }
+                returnKeyType="next"
+                onFocus={() => setInputFocused(true)}
+                onEndEditing={() => setInputFocused(false)}
+                onSubmitEditing={() => refInput3.current.focus()}
+                value={editedContactFieldData.Name_Last}
+              />
+            </ListItem.Content>
+          </ListItem>
+          <ListItem key={2} containerStyle={viewStyles}>
+            <ListItem.Content>
+              <ListItem.Title style={textStyles}>Title</ListItem.Title>
+            </ListItem.Content>
+            <ListItem.Content right>
+              <Input
+                ref={refInput3}
                 containerStyle={{
                   width: 275,
                 }}
@@ -155,18 +189,18 @@ export const EditContactScreen = ({ navigation, route }) => {
                 returnKeyType="next"
                 onFocus={() => setInputFocused(true)}
                 onEndEditing={() => setInputFocused(false)}
-                onSubmitEditing={() => refInput3.current.focus()}
+                onSubmitEditing={() => refInput4.current.focus()}
                 value={editedContactFieldData.Title}
               />
             </ListItem.Content>
           </ListItem>
-          <ListItem key={2} containerStyle={viewStyles}>
+          <ListItem key={3} containerStyle={viewStyles}>
             <ListItem.Content>
               <ListItem.Title style={textStyles}>Account</ListItem.Title>
             </ListItem.Content>
             <ListItem.Content right>
               <Input
-                ref={refInput3}
+                ref={refInput4}
                 containerStyle={{
                   width: 275,
                 }}
@@ -185,18 +219,18 @@ export const EditContactScreen = ({ navigation, route }) => {
                 returnKeyType="next"
                 onFocus={() => setInputFocused(true)}
                 onEndEditing={() => setInputFocused(false)}
-                onSubmitEditing={() => refInput4.current.focus()}
+                onSubmitEditing={() => refInput5.current.focus()}
                 value={editedContactFieldData.Account_Name}
               />
             </ListItem.Content>
           </ListItem>
-          <ListItem key={3} containerStyle={viewStyles}>
+          <ListItem key={4} containerStyle={viewStyles}>
             <ListItem.Content>
               <ListItem.Title style={textStyles}>Address 1</ListItem.Title>
             </ListItem.Content>
             <ListItem.Content right>
               <Input
-                ref={refInput4}
+                ref={refInput5}
                 containerStyle={{
                   width: 275,
                 }}
@@ -223,18 +257,18 @@ export const EditContactScreen = ({ navigation, route }) => {
                 returnKeyType="next"
                 onFocus={() => setInputFocused(true)}
                 onEndEditing={() => setInputFocused(false)}
-                onSubmitEditing={() => refInput5.current.focus()}
+                onSubmitEditing={() => refInput6.current.focus()}
                 value={editedContactFieldData.Primary_Street1}
               />
             </ListItem.Content>
           </ListItem>
-          <ListItem key={4} containerStyle={viewStyles}>
+          <ListItem key={5} containerStyle={viewStyles}>
             <ListItem.Content>
               <ListItem.Title style={textStyles}>Address 2</ListItem.Title>
             </ListItem.Content>
             <ListItem.Content right>
               <Input
-                ref={refInput5}
+                ref={refInput6}
                 containerStyle={{
                   width: 275,
                 }}
@@ -253,18 +287,18 @@ export const EditContactScreen = ({ navigation, route }) => {
                 returnKeyType="next"
                 onFocus={() => setInputFocused(true)}
                 onEndEditing={() => setInputFocused(false)}
-                onSubmitEditing={() => refInput6.current.focus()}
+                onSubmitEditing={() => refInput7.current.focus()}
                 value={editedContactFieldData.Primary_Street2}
               />
             </ListItem.Content>
           </ListItem>
-          <ListItem key={5} containerStyle={viewStyles}>
+          <ListItem key={6} containerStyle={viewStyles}>
             <ListItem.Content>
               <ListItem.Title style={textStyles}>City</ListItem.Title>
             </ListItem.Content>
             <ListItem.Content right>
               <Input
-                ref={refInput6}
+                ref={refInput7}
                 containerStyle={{
                   width: 275,
                 }}
@@ -291,18 +325,18 @@ export const EditContactScreen = ({ navigation, route }) => {
                 returnKeyType="next"
                 onFocus={() => setInputFocused(true)}
                 onEndEditing={() => setInputFocused(false)}
-                onSubmitEditing={() => refInput7.current.focus()}
+                onSubmitEditing={() => refInput8.current.focus()}
                 value={editedContactFieldData.Primary_City}
               />
             </ListItem.Content>
           </ListItem>
-          <ListItem key={6} containerStyle={viewStyles}>
+          <ListItem key={7} containerStyle={viewStyles}>
             <ListItem.Content>
               <ListItem.Title style={textStyles}>State</ListItem.Title>
             </ListItem.Content>
             <ListItem.Content right>
               <Input
-                ref={refInput7}
+                ref={refInput8}
                 containerStyle={{
                   width: 275,
                 }}
@@ -329,18 +363,18 @@ export const EditContactScreen = ({ navigation, route }) => {
                 returnKeyType="next"
                 onFocus={() => setInputFocused(true)}
                 onEndEditing={() => setInputFocused(false)}
-                onSubmitEditing={() => refInput8.current.focus()}
-                value={editedContactFieldData.Primary_State}
+                onSubmitEditing={() => refInput9.current.focus()}
+                value={editedContactFieldData.Primary_State_Prov1}
               />
             </ListItem.Content>
           </ListItem>
-          <ListItem key={7} containerStyle={viewStyles}>
+          <ListItem key={8} containerStyle={viewStyles}>
             <ListItem.Content>
               <ListItem.Title style={textStyles}>Postal Code</ListItem.Title>
             </ListItem.Content>
             <ListItem.Content right>
               <Input
-                ref={refInput8}
+                ref={refInput9}
                 containerStyle={{
                   width: 275,
                 }}
@@ -367,18 +401,18 @@ export const EditContactScreen = ({ navigation, route }) => {
                 returnKeyType="next"
                 onFocus={() => setInputFocused(true)}
                 onEndEditing={() => setInputFocused(false)}
-                onSubmitEditing={() => refInput9.current.focus()}
+                onSubmitEditing={() => refInput10.current.focus()}
                 value={editedContactFieldData.Primary_Postal_Code1}
               />
             </ListItem.Content>
           </ListItem>
-          <ListItem key={8} containerStyle={viewStyles}>
+          <ListItem key={9} containerStyle={viewStyles}>
             <ListItem.Content>
               <ListItem.Title style={textStyles}>Country</ListItem.Title>
             </ListItem.Content>
             <ListItem.Content right>
               <Input
-                ref={refInput9}
+                ref={refInput10}
                 containerStyle={{
                   width: 275,
                 }}
@@ -397,18 +431,18 @@ export const EditContactScreen = ({ navigation, route }) => {
                 returnKeyType="next"
                 onFocus={() => setInputFocused(true)}
                 onEndEditing={() => setInputFocused(false)}
-                onSubmitEditing={() => refInput10.current.focus()}
+                onSubmitEditing={() => refInput11.current.focus()}
                 value={editedContactFieldData.Primary_Country}
               />
             </ListItem.Content>
           </ListItem>
-          <ListItem key={9} containerStyle={viewStyles}>
+          <ListItem key={10} containerStyle={viewStyles}>
             <ListItem.Content>
               <ListItem.Title style={textStyles}>Phone</ListItem.Title>
             </ListItem.Content>
             <ListItem.Content right>
               <Input
-                ref={refInput10}
+                ref={refInput11}
                 containerStyle={{
                   width: 275,
                 }}
@@ -427,18 +461,18 @@ export const EditContactScreen = ({ navigation, route }) => {
                 returnKeyType="next"
                 onFocus={() => setInputFocused(true)}
                 onEndEditing={() => setInputFocused(false)}
-                onSubmitEditing={() => refInput11.current.focus()}
+                onSubmitEditing={() => refInput12.current.focus()}
                 value={editedContactFieldData.Phone1}
               />
             </ListItem.Content>
           </ListItem>
-          <ListItem key={10} containerStyle={viewStyles}>
+          <ListItem key={11} containerStyle={viewStyles}>
             <ListItem.Content>
               <ListItem.Title style={textStyles}>Email</ListItem.Title>
             </ListItem.Content>
             <ListItem.Content right>
               <Input
-                ref={refInput11}
+                ref={refInput12}
                 containerStyle={{
                   width: 275,
                 }}

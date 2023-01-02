@@ -2,7 +2,7 @@ import React, { createContext, useState } from "react";
 import { FMS_getToken } from "../FMS/FMS_getToken";
 import { FMS_logout } from "../FMS/FMS_logout";
 import { FMS_getContacts } from "../FMS/FMS_getContacts";
-import { Alert } from "react-native";
+import { FMS_saveContact } from "../FMS/FMS_saveContact";
 
 // - - - - - - - - - - - - - - - - - - - -
 
@@ -71,6 +71,56 @@ export const ContactsContextProvider = ({ children }) => {
 
   // - - - - - - - - - -
 
+  const saveContact = (contact) => {
+    console.log("ContactsContextProvider saveContact... ");
+    setIsLoading(true);
+    setErrorMessage("");
+
+    FMS_getToken()
+      .then((fmsResult) => {
+        // console.log("saveContact FMS_getToken results: ", fmsResult);
+        const token = fmsResult.response.token;
+        console.log("saveContact FMS_getToken token: ", token);
+
+        FMS_saveContact(token, contact)
+          .then((fmsResult) => {
+            console.log("saveContact FMS_saveContact result: ", fmsResult);
+
+            const message = fmsResult.messages[0].message;
+            alert("FileMaker Server: " + message);
+            setIsLoading(false);
+
+            FMS_logout(token)
+              .then((fmsResult) => {
+                console.log("saveContact FMS_logout result: ", fmsResult);
+                const delay = setTimeout(() => {}, 2000);
+              })
+              .catch((fmsError) => {
+                console.log("saveContact FMS_logout error: ", fmsError);
+                setErrorMessage(fmsError);
+                alert(fmsError);
+                setIsLoading(false);
+              });
+            //
+          })
+          .catch((fmsError) => {
+            console.log("saveContact FMS_saveContact error: ", fmsError);
+            setErrorMessage(fmsError);
+            alert(fmsError);
+            setIsLoading(false);
+          });
+        //
+      })
+      .catch((fmsError) => {
+        console.log("saveContact FMS_getToken error: ", fmsError);
+        setErrorMessage(fmsError);
+        alert(fmsError);
+        setIsLoading(false);
+      });
+  };
+
+  // - - - - - - - - - -
+
   return (
     <ContactsContext.Provider
       value={{
@@ -79,6 +129,7 @@ export const ContactsContextProvider = ({ children }) => {
         setEditedContactFieldData,
         isLoading,
         getContacts,
+        saveContact,
       }}
     >
       {children}

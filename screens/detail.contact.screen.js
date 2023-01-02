@@ -29,7 +29,13 @@ const Colors = {
 // - - - - - - - - - - - - - - - - - - - -
 
 export const DetailContactScreen = ({ navigation, route }) => {
-  const { contacts, setEditedContactFieldData } = useContext(ContactsContext);
+  const {
+    isLoading,
+    contacts,
+    editedContactFieldData,
+    setEditedContactFieldData,
+    saveContact,
+  } = useContext(ContactsContext);
   // parameters
   const { contactIndex, isSaving } = route.params;
   const contact = contacts[contactIndex];
@@ -43,8 +49,6 @@ export const DetailContactScreen = ({ navigation, route }) => {
     { backgroundColor: colors.background },
   ];
   const textStyles: TextStyle[] = [styles.text, { color: colors.text }];
-
-  const [isLoading, setIsLoading] = useState(false);
 
   // accordian sections
   const [expandedSectionGeneral, setExpandedSectionGeneral] = useState(true);
@@ -739,11 +743,11 @@ export const DetailContactScreen = ({ navigation, route }) => {
     });
     if (isSaving) {
       contact["fieldData"] = editedContactFieldData;
-      setIsLoading(false);
       navigation.setParams({
-        contact: contact,
+        contactIndex: contactIndex,
         isSaving: false,
       });
+      saveContact(contact);
     }
   }, [navigation, route.params]);
 
