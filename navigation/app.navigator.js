@@ -43,7 +43,7 @@ const createScreenOptions = ({ route }) => {
 
 export const AppNavigator = () => {
   const colorScheme = useColorScheme();
-  console.log("AppNavigator colorScheme: ", colorScheme);
+  // console.log("AppNavigator colorScheme: ", colorScheme);
 
   const [initialRefresh, setInitialRefresh] = useState(false);
   const { getContacts } = useContext(ContactsContext);

@@ -109,6 +109,7 @@ export const ListContactsScreen = ({ navigation, route }) => {
     console.log("listContacts itemTapped: ", item.fieldData.Account_Name);
     navigation.navigate("DetailContactScreen", {
       contact: item,
+      isSaving: false,
     });
   };
 

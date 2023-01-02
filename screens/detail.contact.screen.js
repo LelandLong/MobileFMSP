@@ -1,12 +1,12 @@
 import React, { useContext, useState, useEffect } from "react";
 import {
   View,
-  Text,
   Button,
   StyleSheet,
   useColorScheme,
   SafeAreaView,
   ScrollView,
+  ActivityIndicator,
 } from "react-native";
 // import { Button } from "@rneui/themed";
 import { ListItem, Avatar, Divider } from "@rneui/themed";
@@ -30,7 +30,8 @@ const Colors = {
 
 export const DetailContactScreen = ({ navigation, route }) => {
   // parameters
-  let { contact } = route.params;
+  let { contact, isSaving } = route.params;
+  // console.log("DetailContactScreen launched, isSaving: ", isSaving);
 
   // colors
   const colorScheme = useColorScheme();
@@ -41,7 +42,9 @@ export const DetailContactScreen = ({ navigation, route }) => {
   ];
   const textStyles: TextStyle[] = [styles.text, { color: colors.text }];
 
-  const { contacts } = useContext(ContactsContext);
+  const { editedContactFieldData, setEditedContactFieldData } =
+    useContext(ContactsContext);
+  const [isLoading, setIsLoading] = useState(false);
 
   // accordian sections
   const [expandedSectionGeneral, setExpandedSectionGeneral] = useState(true);
@@ -57,6 +60,7 @@ export const DetailContactScreen = ({ navigation, route }) => {
   // - - - - - - - - - -
 
   const editTapped = () => {
+    setEditedContactFieldData(contact.fieldData);
     console.log(
       "DetailContactScreen editTapped, account: ",
       contact.fieldData.Account_Name
@@ -736,29 +740,47 @@ export const DetailContactScreen = ({ navigation, route }) => {
     navigation.setOptions({
       headerRight: () => <Button onPress={() => editTapped()} title="Edit" />,
     });
-  }, [navigation]);
+    if (isSaving) {
+      contact["fieldData"] = editedContactFieldData;
+      setIsLoading(false);
+      navigation.setParams({
+        contact: contact,
+        isSaving: false,
+      });
+    }
+  }, [navigation, route.params]);
 
   // - - - - - - - - - -
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.border }}>
-      <ScrollView style={styles.list}>
-        <View style={styles.avatarContainer}>
-          <Avatar
-            size={96}
-            source={{
-              uri: `data:image/png;base64,${contact.fieldData.Contact_Container_Photo_Base64}`,
-            }}
-          />
-        </View>
-        <SectionGeneral />
-        <SectionEstimates />
-        <SectionInvoices />
-        <SectionProjects />
-        <SectionToDos />
-        <SectionNotes />
-        <SectionCoworkers />
-      </ScrollView>
+      {isLoading ? (
+        <>
+          <View style={[styles.container]}>
+            <ActivityIndicator size="large" />
+          </View>
+        </>
+      ) : (
+        <>
+          <ScrollView style={styles.list}>
+            <View style={styles.avatarContainer}>
+              <Avatar
+                size={96}
+                source={{
+                  uri: `data:image/png;base64,${contact.fieldData.Contact_Container_Photo_Base64}`,
+                }}
+              />
+            </View>
+            <SectionGeneral />
+            <SectionEstimates />
+            <SectionInvoices />
+            <SectionProjects />
+            <SectionToDos />
+            <SectionNotes />
+            <SectionCoworkers />
+          </ScrollView>
+        </>
+      )}
     </SafeAreaView>
   );
 };
