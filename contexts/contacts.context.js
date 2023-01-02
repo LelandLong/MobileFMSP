@@ -3,6 +3,7 @@ import { FMS_getToken } from "../FMS/FMS_getToken";
 import { FMS_logout } from "../FMS/FMS_logout";
 import { FMS_getContacts } from "../FMS/FMS_getContacts";
 import { FMS_saveContact } from "../FMS/FMS_saveContact";
+import { FMS_createNewContact } from "../FMS/FMS_createNewContact";
 
 // - - - - - - - - - - - - - - - - - - - -
 
@@ -128,50 +129,52 @@ export const ContactsContextProvider = ({ children }) => {
     setIsLoading(true);
     setErrorMessage("");
 
-    // FMS_getToken()
-    //   .then((fmsResult) => {
-    //     // console.log("saveContact FMS_getToken results: ", fmsResult);
-    //     const token = fmsResult.response.token;
-    //     console.log("saveContact FMS_getToken token: ", token);
+    FMS_getToken()
+      .then((fmsResult) => {
+        // console.log("saveContact FMS_getToken results: ", fmsResult);
+        const token = fmsResult.response.token;
+        console.log("createNewContact FMS_getToken token: ", token);
 
-    //     FMS_saveContact(token, contact)
-    //       .then((fmsResult) => {
-    //         console.log("saveContact FMS_saveContact result: ", fmsResult);
+        FMS_createNewContact(token, contact)
+          .then((fmsResult) => {
+            console.log(
+              "createNewContact FMS_createNewContact result: ",
+              fmsResult
+            );
 
-    //         const message = fmsResult.messages[0].message;
-    //         alert("FileMaker Server: " + message);
+            const message = fmsResult.messages[0].message;
+            alert("FileMaker Server: " + message);
 
-    //         FMS_logout(token)
-    //           .then((fmsResult) => {
-    //             console.log("saveContact FMS_logout result: ", fmsResult);
-    //             setIsLoading(false);
-    //           })
-    //           .catch((fmsError) => {
-    //             console.log("saveContact FMS_logout error: ", fmsError);
-    //             setErrorMessage(fmsError);
-    //             alert(fmsError);
-    //             setIsLoading(false);
-    //           });
-    //         //
-    //       })
-    //       .catch((fmsError) => {
-    //         console.log("saveContact FMS_saveContact error: ", fmsError);
-    //         setErrorMessage(fmsError);
-    //         alert(fmsError);
-    //         setIsLoading(false);
-    //       });
-    //     //
-    //   })
-    //   .catch((fmsError) => {
-    //     console.log("saveContact FMS_getToken error: ", fmsError);
-    //     setErrorMessage(fmsError);
-    //     alert(fmsError);
-    //     setIsLoading(false);
-    //   });
-
-    const myTimer = setTimeout(() => {
-      setIsLoading(false);
-    });
+            FMS_logout(token)
+              .then((fmsResult) => {
+                console.log("createNewContact FMS_logout result: ", fmsResult);
+                setIsLoading(false);
+              })
+              .catch((fmsError) => {
+                console.log("createNewContact FMS_logout error: ", fmsError);
+                setErrorMessage(fmsError);
+                alert(fmsError);
+                setIsLoading(false);
+              });
+            //
+          })
+          .catch((fmsError) => {
+            console.log(
+              "createNewContact FMS_createNewContact error: ",
+              fmsError
+            );
+            setErrorMessage(fmsError);
+            alert(fmsError);
+            setIsLoading(false);
+          });
+        //
+      })
+      .catch((fmsError) => {
+        console.log("createNewContact FMS_getToken error: ", fmsError);
+        setErrorMessage(fmsError);
+        alert(fmsError);
+        setIsLoading(false);
+      });
   };
 
   // - - - - - - - - - -
