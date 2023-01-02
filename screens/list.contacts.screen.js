@@ -1,10 +1,12 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import {
   SafeAreaView,
   FlatList,
+  Button,
   StyleSheet,
   useColorScheme,
 } from "react-native";
+// import { Button } from "@rneui/themed";
 import { ListItem, Avatar } from "@rneui/themed";
 import { ContactsContext } from "../contexts/contacts.context";
 
@@ -81,6 +83,9 @@ const Colors = {
 // - - - - - - - - - - - - - - - - - - - -
 
 export const ListContactsScreen = ({ navigation, route }) => {
+  // parameters
+  let { whichDetail } = route.params;
+
   const colorScheme = useColorScheme();
   const colors = Colors[colorScheme];
 
@@ -94,8 +99,14 @@ export const ListContactsScreen = ({ navigation, route }) => {
 
   // - - - - - - - - - -
 
+  const addTapped = () => {
+    console.log("listContacts addTapped...");
+  };
+
+  // - - - - - - - - - -
+
   const itemTapped = (item) => {
-    console.log("listContacts itemTapped: ", item.Account_Name);
+    console.log("listContacts itemTapped: ", item.fieldData.Account_Name);
     navigation.navigate("DetailContactScreen", {
       contact: item,
     });
@@ -133,6 +144,14 @@ export const ListContactsScreen = ({ navigation, route }) => {
       </ListItem>
     );
   };
+
+  // - - - - - - - - - -
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => <Button onPress={() => addTapped()} title="+" />,
+    });
+  }, [navigation]);
 
   // - - - - - - - - - -
 

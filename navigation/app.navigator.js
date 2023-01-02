@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useColorScheme } from "react-native";
 import {
   NavigationContainer,
@@ -9,6 +9,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { HomeNavigator } from "./home.navigator";
 import { SettingsNavigator } from "./settings.navigator";
+import { ContactsContext } from "../contexts/contacts.context";
 
 // - - - - - - - - - - - - - - - - - - - -
 
@@ -44,6 +45,9 @@ export const AppNavigator = () => {
   const colorScheme = useColorScheme();
   console.log("AppNavigator colorScheme: ", colorScheme);
 
+  const [initialRefresh, setInitialRefresh] = useState(false);
+  const { getContacts } = useContext(ContactsContext);
+
   // NOTE: had to change app.json - expo.userInterfaceStyle: "light"
   //           to change app.json - expo.userInterfaceStyle: "automatic"
   //
@@ -53,6 +57,16 @@ export const AppNavigator = () => {
   //       had to change app.json - expo.android
   //                        added - expo.android.userInterfaceStyle: "automatic"
   //
+
+  // - - - - - - - - - -
+
+  useEffect(() => {
+    console.log("appNavigator.useEffect[] triggered...");
+    if (!initialRefresh) {
+      setInitialRefresh(true);
+      getContacts();
+    }
+  }, []);
 
   // - - - - - - - - - -
 

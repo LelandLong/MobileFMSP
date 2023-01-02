@@ -1,12 +1,14 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import {
   View,
   Text,
+  Button,
   StyleSheet,
   useColorScheme,
   SafeAreaView,
   ScrollView,
 } from "react-native";
+// import { Button } from "@rneui/themed";
 import { ListItem, Avatar, Divider } from "@rneui/themed";
 import * as Linking from "expo-linking"; // installed via: expo install expo-linking
 import { ContactsContext } from "../contexts/contacts.context";
@@ -51,6 +53,12 @@ export const DetailContactScreen = ({ navigation, route }) => {
   const [expandedSectionNotes, setExpandedSectionNotes] = useState(false);
   const [expandedSectionCoworkers, setExpandedSectionCoworkers] =
     useState(false);
+
+  // - - - - - - - - - -
+
+  const editTapped = () => {
+    console.log("DetailContactScreen editTapped...");
+  };
 
   // - - - - - - - - - -
 
@@ -715,6 +723,14 @@ export const DetailContactScreen = ({ navigation, route }) => {
       </View>
     );
   };
+
+  // - - - - - - - - - -
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => <Button onPress={() => editTapped()} title="Edit" />,
+    });
+  }, [navigation]);
 
   // - - - - - - - - - -
 

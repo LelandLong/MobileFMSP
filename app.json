@@ -19,7 +19,8 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "userInterfaceStyle": "automatic"
+      "userInterfaceStyle": "automatic",
+      "bundleIdentifier": "com.lelandlong.MobileFMSP"
     },
     "android": {
       "adaptiveIcon": {
