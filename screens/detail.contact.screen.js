@@ -57,7 +57,13 @@ export const DetailContactScreen = ({ navigation, route }) => {
   // - - - - - - - - - -
 
   const editTapped = () => {
-    console.log("DetailContactScreen editTapped...");
+    console.log(
+      "DetailContactScreen editTapped, account: ",
+      contact.fieldData.Account_Name
+    );
+    navigation.navigate("EditContactScreen", {
+      contact: contact,
+    });
   };
 
   // - - - - - - - - - -

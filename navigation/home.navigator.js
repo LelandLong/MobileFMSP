@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { HomeScreen } from "../screens/home.screen";
 import { ListContactsScreen } from "../screens/list.contacts.screen";
 import { DetailContactScreen } from "../screens/detail.contact.screen";
+import { EditContactScreen } from "../screens/edit.contact.screen";
 
 // - - - - - - - - - - - - - - - - - - - -
 
@@ -29,11 +30,15 @@ export const HomeNavigator = () => {
         component={ListContactsScreen}
         options={{ title: "Contacts" }}
       />
-
       <HomeStack.Screen
         name="DetailContactScreen"
         component={DetailContactScreen}
         options={{ title: "Contact" }}
+      />
+      <HomeStack.Screen
+        name="EditContactScreen"
+        component={EditContactScreen}
+        options={{ title: "Edit Contact" }}
       />
     </HomeStack.Navigator>
   );
