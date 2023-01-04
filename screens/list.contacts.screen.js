@@ -3,14 +3,18 @@ import {
   SafeAreaView,
   View,
   ActivityIndicator,
+  Alert,
   FlatList,
   Button,
+  Text,
   StyleSheet,
   useColorScheme,
 } from "react-native";
 // import { Button } from "@rneui/themed";
 import { ListItem, Avatar } from "@rneui/themed";
 import { ContactsContext } from "../contexts/contacts.context";
+import { RectButton } from "react-native-gesture-handler";
+import Swipeable from "react-native-gesture-handler/Swipeable";
 
 // - - - - - - - - - - - - - - - - - - - -
 
@@ -39,6 +43,53 @@ export const ListContactsScreen = ({ navigation, route }) => {
 
   const { contacts, isLoading } = useContext(ContactsContext);
   const [forceUpdateValue, setForceUpdateValue] = useState(0);
+  const [isSwiping, setIsSwiping] = useState(false);
+
+  // - - - - - - - - - -
+
+  const onDeletePress = (index) => {
+    //
+    // - - - - - - - - - -
+
+    const deleteItem = (index) => {
+      console.log("onDeletePress deleteItem index: ", index);
+    };
+
+    // - - - - - - - - - -
+
+    Alert.alert(
+      "Alert",
+      `Are you sure you want to delete this Contact [${index}]?`,
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("onDeletePress Cancel Pressed..."),
+          style: "cancel",
+        },
+        { text: "OK", onPress: () => deleteItem(index) },
+      ]
+    );
+  };
+
+  // - - - - - - - - - -
+
+  const renderRightActions = (index) => {
+    return (
+      <RectButton
+        style={styles.rightAction}
+        onPress={() => onDeletePress(index)}
+      >
+        <Text style={styles.actionText}>Delete</Text>
+      </RectButton>
+    );
+  };
+
+  // - - - - - - - - - -
+
+  const renderRightOpen = (index) => {
+    console.log("swiped left, Delete button revealed, index: ", index);
+    setIsSwiping(true);
+  };
 
   // - - - - - - - - - -
 
@@ -53,12 +104,18 @@ export const ListContactsScreen = ({ navigation, route }) => {
   // - - - - - - - - - -
 
   const itemTapped = (index) => {
-    console.log("listContacts indexTapped: ", index);
-    navigation.navigate("DetailContactScreen", {
-      contactIndex: index,
-      editType: "",
-      isSaving: false,
-    });
+    if (isSwiping) {
+      // console.log("itemTapped isSwiping, no tap, isSwiping=false");
+      setIsSwiping(false);
+      //
+    } else {
+      console.log("listContacts indexTapped: ", index);
+      navigation.navigate("DetailContactScreen", {
+        contactIndex: index,
+        editType: "",
+        isSaving: false,
+      });
+    }
   };
 
   // - - - - - - - - - -
@@ -69,28 +126,33 @@ export const ListContactsScreen = ({ navigation, route }) => {
 
   const renderItem = ({ item, index }) => {
     return (
-      <ListItem
-        topDivider
-        bottomDivider
-        containerStyle={viewStyles}
-        onPress={() => itemTapped(index)}
+      <Swipeable
+        renderRightActions={() => renderRightActions(index)}
+        onSwipeableOpen={() => renderRightOpen(index)}
       >
-        <Avatar
-          size={48}
-          source={{
-            uri: `data:image/png;base64,${item.fieldData.Contact_Container_Photo_Base64}`,
-          }}
-        />
-        <ListItem.Content>
-          <ListItem.Title style={titleStyles}>
-            {item.fieldData.Name_Full}
-          </ListItem.Title>
-          <ListItem.Subtitle style={styles.subtitle}>
-            {item.fieldData.Account_Name}
-          </ListItem.Subtitle>
-        </ListItem.Content>
-        <ListItem.Chevron />
-      </ListItem>
+        <ListItem
+          topDivider
+          bottomDivider
+          containerStyle={viewStyles}
+          onPress={() => itemTapped(index)}
+        >
+          <Avatar
+            size={48}
+            source={{
+              uri: `data:image/png;base64,${item.fieldData.Contact_Container_Photo_Base64}`,
+            }}
+          />
+          <ListItem.Content>
+            <ListItem.Title style={titleStyles}>
+              {item.fieldData.Name_Full}
+            </ListItem.Title>
+            <ListItem.Subtitle style={styles.subtitle}>
+              {item.fieldData.Account_Name}
+            </ListItem.Subtitle>
+          </ListItem.Content>
+          <ListItem.Chevron />
+        </ListItem>
+      </Swipeable>
     );
   };
 
@@ -127,13 +189,11 @@ export const ListContactsScreen = ({ navigation, route }) => {
           </View>
         </>
       ) : (
-        <>
-          <FlatList
-            keyExtractor={keyExtractor}
-            data={contacts}
-            renderItem={renderItem}
-          />
-        </>
+        <FlatList
+          keyExtractor={keyExtractor}
+          data={contacts}
+          renderItem={renderItem}
+        />
       )}
     </SafeAreaView>
   );
@@ -152,5 +212,16 @@ const styles = StyleSheet.create({
   subtitle: {
     color: "gray",
     fontSize: 14,
+  },
+  actionText: {
+    color: "white",
+    fontWeight: "600",
+    paddingHorizontal: 30,
+    paddingVertical: 20,
+  },
+  rightAction: {
+    backgroundColor: "red",
+    justifyContent: "center",
+    alignItems: "flex-end",
   },
 });
