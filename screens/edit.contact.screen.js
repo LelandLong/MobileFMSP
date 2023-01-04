@@ -28,29 +28,15 @@ const Colors = {
 // - - - - - - - - - - - - - - - - - - - -
 
 export const EditContactScreen = ({ navigation, route }) => {
-  const { contacts, editedContactFieldData, setEditedContactFieldData } =
-    useContext(ContactsContext);
+  const {
+    blankContact,
+    contacts,
+    editedContactFieldData,
+    setEditedContactFieldData,
+  } = useContext(ContactsContext);
   // parameters
   let { contactIndex, editType } = route.params;
-  let contact = {
-    fieldData: {
-      Contact_Container_Photo_Base64: "",
-      Name_Full: "",
-      Name_First: "",
-      Name_Last: "",
-      Title: "",
-      Account_Name: "",
-      Primary_Address_calc2: "",
-      Primary_Street1: "",
-      Primary_Street2: "",
-      Primary_City: "",
-      Primary_State_Prov1: "",
-      Primary_Postal_Code1: "",
-      Primary_Country: "",
-      Phone1: "",
-      Email: "",
-    },
-  };
+  let contact = blankContact;
   if (editType == "edit") {
     contact = contacts[contactIndex];
   }

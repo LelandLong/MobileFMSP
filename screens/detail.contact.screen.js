@@ -31,12 +31,12 @@ const Colors = {
 export const DetailContactScreen = ({ navigation, route }) => {
   const {
     isLoading,
+    blankContact,
     contacts,
-    setContacts,
     editedContactFieldData,
     setEditedContactFieldData,
+    addContact,
     saveContact,
-    createNewContact,
   } = useContext(ContactsContext);
   // parameters
   const { contactIndex, isSaving, editType } = route.params;
@@ -765,27 +765,21 @@ export const DetailContactScreen = ({ navigation, route }) => {
       //
       //
     } else if (isSaving && editType == "new") {
-      // update contacts by adding to end of array and saving to context
       const newContact = {
+        ...blankContact,
         fieldData: editedContactFieldData,
-        portalData: {
-          "T05l_contacts_ESTIMATES||id_contacts|": [],
-          "T05m_contacts_INVOICES||id_contact|": [],
-          "T05o_contacts_PROJECTS||id_contact|": [],
-          "T05p_contacts_TASK_LIST||id_contact|": [],
-          "T05c_contacts_NOTES||id_contact|": [],
-          "T05f_contacts_CONTACTS||id_contact|": [],
-        },
       };
-      contacts.push(newContact);
-      setContacts(contacts);
+      const currentCount = contacts.length;
+
+      // update context
+      addContact(newContact);
+
+      // update local params
       navigation.setParams({
-        contactIndex: contacts.length - 1,
+        contactIndex: currentCount,
         editType: editType,
         isSaving: false,
       });
-      // push to server
-      createNewContact(newContact);
     }
   }, [navigation, route.params]);
 

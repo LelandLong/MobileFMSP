@@ -41,7 +41,7 @@ export const ListContactsScreen = ({ navigation, route }) => {
   ];
   const titleStyles: TextStyle[] = [styles.title, { color: colors.text }];
 
-  const { contacts, isLoading } = useContext(ContactsContext);
+  const { contacts, isLoading, removeContact } = useContext(ContactsContext);
   const [forceUpdateValue, setForceUpdateValue] = useState(0);
   const [isSwiping, setIsSwiping] = useState(false);
 
@@ -53,22 +53,22 @@ export const ListContactsScreen = ({ navigation, route }) => {
 
     const deleteItem = (index) => {
       console.log("onDeletePress deleteItem index: ", index);
+      removeContact(index);
+      // const myTimer = setTimeout(() => {
+      //   const forceUpdate = useForceUpdate();
+      // }, 1000);
     };
 
     // - - - - - - - - - -
 
-    Alert.alert(
-      "Alert",
-      `Are you sure you want to delete this Contact [${index}]?`,
-      [
-        {
-          text: "Cancel",
-          onPress: () => console.log("onDeletePress Cancel Pressed..."),
-          style: "cancel",
-        },
-        { text: "OK", onPress: () => deleteItem(index) },
-      ]
-    );
+    Alert.alert("Alert", "Are you sure you want to delete this Contact?", [
+      {
+        text: "Cancel",
+        onPress: () => console.log("onDeletePress Cancel Pressed..."),
+        style: "cancel",
+      },
+      { text: "OK", onPress: () => deleteItem(index) },
+    ]);
   };
 
   // - - - - - - - - - -
