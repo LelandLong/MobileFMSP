@@ -1,0 +1,63 @@
+===============================================================================
+EXTENSION NAME : linecounter
+EXTENSION VERSION : 0.2.7
+-------------------------------------------------------------------------------
+count time : 2023-01-03 23:54:15
+count workspace : /Users/admin/MobileFMSP
+total files : 43
+total code lines : 24972
+total comment lines : 165
+total blank lines : 242
+
+    statistics
+   |      extension|     total code|  total comment|    total blank|percent|
+   -------------------------------------------------------------------------
+   |            .js|           2462|            165|            231|    9.9|
+   |          .json|          22488|              0|              4|     90|
+   |            .md|              9|              0|              6|  0.036|
+   |               |             13|              0|              1|  0.052|
+   -------------------------------------------------------------------------
+.expo/devices.json, code is 3, comment is 0, blank is 0.
+.expo/packager-info.json, code is 9, comment is 0, blank is 0.
+.expo/README.md, code is 9, comment is 0, blank is 6.
+.expo/settings.json, code is 9, comment is 0, blank is 0.
+.gitignore, code is 13, comment is 0, blank is 1.
+App.js, code is 11, comment is 1, blank is 3.
+app.json, code is 35, comment is 0, blank is 1.
+assets/Accounts.png, it is a binary file.
+assets/adaptive-icon.png, it is a binary file.
+assets/Assets.png, it is a binary file.
+assets/Calendar.png, it is a binary file.
+assets/Contacts.png, it is a binary file.
+assets/Estimates.png, it is a binary file.
+assets/Expenses.png, it is a binary file.
+assets/favicon.png, it is a binary file.
+assets/icon.png, it is a binary file.
+assets/Invoices.png, it is a binary file.
+assets/Products.png, it is a binary file.
+assets/Projects.png, it is a binary file.
+assets/splash.png, it is a binary file.
+assets/Staff.png, it is a binary file.
+assets/Tasks.png, it is a binary file.
+assets/Timesheets.png, it is a binary file.
+babel.config.js, code is 6, comment is 0, blank is 0.
+contexts/contacts.context.js, code is 235, comment is 27, blank is 36.
+eas.json, code is 18, comment is 0, blank is 0.
+FMS/FMS_createNewContact.js, code is 89, comment is 6, blank is 7.
+FMS/FMS_deleteContact.js, code is 69, comment is 6, blank is 7.
+FMS/FMS_getContacts.js, code is 66, comment is 6, blank is 6.
+FMS/FMS_getToken.js, code is 63, comment is 7, blank is 6.
+FMS/FMS_logout.js, code is 60, comment is 6, blank is 6.
+FMS/FMS_saveContact.js, code is 83, comment is 6, blank is 6.
+fmsKeys.js, code is 5, comment is 4, blank is 6.
+navigation/app.navigator.js, code is 60, comment is 14, blank is 13.
+navigation/home.navigator.js, code is 37, comment is 3, blank is 5.
+navigation/settings.navigator.js, code is 19, comment is 3, blank is 5.
+package-lock.json, code is 22384, comment is 0, blank is 3.
+package.json, code is 30, comment is 0, blank is 0.
+screens/detail.contact.screen.js, code is 780, comment is 32, blank is 49.
+screens/edit.contact.screen.js, code is 509, comment is 10, blank is 15.
+screens/home.screen.js, code is 159, comment is 9, blank is 21.
+screens/list.contacts.screen.js, code is 173, comment is 22, blank is 32.
+screens/settings.screen.js, code is 38, comment is 3, blank is 8.
+===============================================================================

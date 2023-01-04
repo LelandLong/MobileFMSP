@@ -1,0 +1,313 @@
+{
+    "extension": "linecounter",
+    "version": "0.2.7",
+    "workspace": "/Users/admin/MobileFMSP",
+    "linecount": [
+        {
+            "version": "0.2.7",
+            "counttime": "2023-01-03 23:54:15",
+            "filesum": 43,
+            "codesum": 24972,
+            "commentsum": 165,
+            "blanksum": 242,
+            "statistics": {
+                ".js": {
+                    "code": 2462,
+                    "comment": 165,
+                    "blank": 231
+                },
+                ".json": {
+                    "code": 22488,
+                    "comment": 0,
+                    "blank": 4
+                },
+                ".md": {
+                    "code": 9,
+                    "comment": 0,
+                    "blank": 6
+                },
+                "": {
+                    "code": 13,
+                    "comment": 0,
+                    "blank": 1
+                }
+            },
+            "filelist": [
+                {
+                    "blank": 0,
+                    "code": 3,
+                    "comment": 0,
+                    "filename": ".expo/devices.json"
+                },
+                {
+                    "blank": 0,
+                    "code": 9,
+                    "comment": 0,
+                    "filename": ".expo/packager-info.json"
+                },
+                {
+                    "blank": 6,
+                    "code": 9,
+                    "comment": 0,
+                    "filename": ".expo/README.md"
+                },
+                {
+                    "blank": 0,
+                    "code": 9,
+                    "comment": 0,
+                    "filename": ".expo/settings.json"
+                },
+                {
+                    "blank": 1,
+                    "code": 13,
+                    "comment": 0,
+                    "filename": ".gitignore"
+                },
+                {
+                    "blank": 3,
+                    "code": 11,
+                    "comment": 1,
+                    "filename": "App.js"
+                },
+                {
+                    "blank": 1,
+                    "code": 35,
+                    "comment": 0,
+                    "filename": "app.json"
+                },
+                {
+                    "filename": "assets/Accounts.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "assets/adaptive-icon.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "assets/Assets.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "assets/Calendar.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "assets/Contacts.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "assets/Estimates.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "assets/Expenses.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "assets/favicon.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "assets/icon.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "assets/Invoices.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "assets/Products.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "assets/Projects.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "assets/splash.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "assets/Staff.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "assets/Tasks.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "assets/Timesheets.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 0,
+                    "code": 6,
+                    "comment": 0,
+                    "filename": "babel.config.js"
+                },
+                {
+                    "blank": 36,
+                    "code": 235,
+                    "comment": 27,
+                    "filename": "contexts/contacts.context.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 18,
+                    "comment": 0,
+                    "filename": "eas.json"
+                },
+                {
+                    "blank": 7,
+                    "code": 89,
+                    "comment": 6,
+                    "filename": "FMS/FMS_createNewContact.js"
+                },
+                {
+                    "blank": 7,
+                    "code": 69,
+                    "comment": 6,
+                    "filename": "FMS/FMS_deleteContact.js"
+                },
+                {
+                    "blank": 6,
+                    "code": 66,
+                    "comment": 6,
+                    "filename": "FMS/FMS_getContacts.js"
+                },
+                {
+                    "blank": 6,
+                    "code": 63,
+                    "comment": 7,
+                    "filename": "FMS/FMS_getToken.js"
+                },
+                {
+                    "blank": 6,
+                    "code": 60,
+                    "comment": 6,
+                    "filename": "FMS/FMS_logout.js"
+                },
+                {
+                    "blank": 6,
+                    "code": 83,
+                    "comment": 6,
+                    "filename": "FMS/FMS_saveContact.js"
+                },
+                {
+                    "blank": 6,
+                    "code": 5,
+                    "comment": 4,
+                    "filename": "fmsKeys.js"
+                },
+                {
+                    "blank": 13,
+                    "code": 60,
+                    "comment": 14,
+                    "filename": "navigation/app.navigator.js"
+                },
+                {
+                    "blank": 5,
+                    "code": 37,
+                    "comment": 3,
+                    "filename": "navigation/home.navigator.js"
+                },
+                {
+                    "blank": 5,
+                    "code": 19,
+                    "comment": 3,
+                    "filename": "navigation/settings.navigator.js"
+                },
+                {
+                    "blank": 3,
+                    "code": 22384,
+                    "comment": 0,
+                    "filename": "package-lock.json"
+                },
+                {
+                    "blank": 0,
+                    "code": 30,
+                    "comment": 0,
+                    "filename": "package.json"
+                },
+                {
+                    "blank": 49,
+                    "code": 780,
+                    "comment": 32,
+                    "filename": "screens/detail.contact.screen.js"
+                },
+                {
+                    "blank": 15,
+                    "code": 509,
+                    "comment": 10,
+                    "filename": "screens/edit.contact.screen.js"
+                },
+                {
+                    "blank": 21,
+                    "code": 159,
+                    "comment": 9,
+                    "filename": "screens/home.screen.js"
+                },
+                {
+                    "blank": 32,
+                    "code": 173,
+                    "comment": 22,
+                    "filename": "screens/list.contacts.screen.js"
+                },
+                {
+                    "blank": 8,
+                    "code": 38,
+                    "comment": 3,
+                    "filename": "screens/settings.screen.js"
+                }
+            ]
+        }
+    ]
+}
