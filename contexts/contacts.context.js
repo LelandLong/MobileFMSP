@@ -5,6 +5,7 @@ import { FMS_getContacts } from "../FMS/FMS_getContacts";
 import { FMS_saveContact } from "../FMS/FMS_saveContact";
 import { FMS_createNewContact } from "../FMS/FMS_createNewContact";
 import { FMS_deleteContact } from "../FMS/FMS_deleteContact";
+import { FMS_scriptForRandomContact } from "../FMS/FMS_scriptRandom";
 
 // - - - - - - - - - - - - - - - - - - - -
 
@@ -277,6 +278,67 @@ export const ContactsContextProvider = ({ children }) => {
 
   // - - - - - - - - - -
 
+  const scriptForRandomContact = () => {
+    console.log("ContactsContextProvider scriptForRandomContact... ");
+    setIsLoading(true);
+    setErrorMessage("");
+
+    FMS_getToken()
+      .then((fmsResult) => {
+        // console.log("scriptForRandomContact FMS_getToken results: ", fmsResult);
+        const token = fmsResult.response.token;
+        console.log("scriptForRandomContact FMS_getToken token: ", token);
+
+        FMS_scriptForRandomContact(token)
+          .then((fmsResult) => {
+            console.log(
+              "scriptForRandomContact FMS_scriptForRandomContact result: ",
+              fmsResult
+            );
+
+            const message = fmsResult.messages[0].message;
+            alert("FileMaker Server: " + message);
+
+            FMS_logout(token)
+              .then((fmsResult) => {
+                console.log(
+                  "scriptForRandomContact FMS_logout result: ",
+                  fmsResult
+                );
+                setIsLoading(false);
+              })
+              .catch((fmsError) => {
+                console.log(
+                  "scriptForRandomContact FMS_logout error: ",
+                  fmsError
+                );
+                setErrorMessage(fmsError);
+                alert(fmsError);
+                setIsLoading(false);
+              });
+            //
+          })
+          .catch((fmsError) => {
+            console.log(
+              "scriptForRandomContact FMS_saveContact error: ",
+              fmsError
+            );
+            setErrorMessage(fmsError);
+            alert(fmsError);
+            setIsLoading(false);
+          });
+        //
+      })
+      .catch((fmsError) => {
+        console.log("scriptForRandomContact FMS_getToken error: ", fmsError);
+        setErrorMessage(fmsError);
+        alert(fmsError);
+        setIsLoading(false);
+      });
+  };
+
+  // - - - - - - - - - -
+
   return (
     <ContactsContext.Provider
       value={{
@@ -290,6 +352,7 @@ export const ContactsContextProvider = ({ children }) => {
         removeContact,
         getContacts,
         saveContact,
+        scriptForRandomContact,
       }}
     >
       {children}

@@ -1,5 +1,6 @@
-import React from "react";
-import { View, Text, StyleSheet, useColorScheme } from "react-native";
+import React, { useContext } from "react";
+import { View, Text, StyleSheet, useColorScheme, Button } from "react-native";
+import { ContactsContext } from "../contexts/contacts.context";
 
 // - - - - - - - - - - - - - - - - - - - -
 
@@ -26,12 +27,18 @@ export const SettingsScreen = ({ navigation }) => {
   ];
   const textStyles: TextStyle[] = [styles.text, { color: colors.text }];
 
+  const { scriptForRandomContact } = useContext(ContactsContext);
+
   // - - - - - - - - - -
 
   return (
     <View style={viewStyles}>
       <Text style={textStyles}>Settings Screen</Text>
       <Text style={textStyles}> </Text>
+      <Button
+        title="Script to Create Random Contact"
+        onPress={() => scriptForRandomContact()}
+      />
     </View>
   );
 };
